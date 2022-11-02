@@ -8,6 +8,7 @@
 \usepackage{bibentry}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, 
+\usepackage{listings}
 
 
 \title[CodeSeoul] % (optional, only for long titles)
@@ -22,7 +23,7 @@
 
 \date{\today} 
 
-% some change ssdf
+% some change
 \begin{document}
     %\maketitle
     \begin{frame}
@@ -32,6 +33,17 @@
     \begin{frame}
     \frametitle{Overview} % Table of contents slide, comment this block out to remove it
     \tableofcontents 
+    \end{frame}
+
+    \begin{frame}[fragile]
+    \begin{lstlisting}
+        for input, target in dataset:
+          optimizer.zero_grad()
+          output = model(input)
+          loss = loss_fn(output, target)
+          loss.backward()
+          optimizer.step()
+    \end{lstlisting}
     \end{frame}
 
     \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
