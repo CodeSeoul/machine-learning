@@ -1,0 +1,50 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+\usetheme{Boadilla}
+\usecolortheme{default}
+}
+%\usepackage{natbib}
+\usepackage{bibentry}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, 
+
+
+\title[CodeSeoul] % (optional, only for long titles)
+	{Optimization algorithms in deep learning}
+
+\author[AI Research Paper Review] % (optional, for multiple authors)
+	{Sanzhar Askaruly}
+
+\institute[] % (optional)
+	{ Ulsan National Institute of Science and Technology\newline
+	  Ph.D. Candidate in Biomedical Engineering}
+
+\date{\today} 
+
+\begin{document}
+    %\maketitle
+    \begin{frame}
+    \titlepage % Print the title page as the first slide
+    \end{frame}
+
+    \begin{frame}
+    \frametitle{Overview} % Table of contents slide, comment this block out to remove it
+    \tableofcontents 
+    \end{frame}
+
+    \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+    \frametitle{Citation}
+    An example of the \verb|\cite| command to cite within the presentation:\\~
+
+    This statement requires citation.~\cite{test1} 
+    \end{frame}
+
+
+    \begin{frame}[t, allowframebreaks]
+    \frametitle{References}
+    \bibliographystyle{amsalpha}
+    \bibliography{bibfile}
+    \end{frame}
+
+\end{document}

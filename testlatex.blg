@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: testlatex.aux
+The style file: amsalpha.bst
+Database file #1: bibfile.bib
+Warning--missing journal name in test1
+Warning--missing journal, volume, and year in test1
+Warning--missing pages in test1
+You've used 1 entry,
+            2624 wiz_defined-function locations,
+            564 strings with 4525 characters,
+and the built_in function-call counts, 311 in all, are:
+= -- 22
+> -- 8
+< -- 1
++ -- 2
+- -- 2
+* -- 27
+:= -- 55
+add.period$ -- 1
+call.type$ -- 1
+change.case$ -- 5
+chr.to.int$ -- 1
+cite$ -- 4
+duplicate$ -- 15
+empty$ -- 22
+format.name$ -- 4
+if$ -- 52
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 2
+newline$ -- 13
+num.names$ -- 3
+pop$ -- 7
+preamble$ -- 1
+purify$ -- 6
+quote$ -- 0
+skip$ -- 10
+stack$ -- 0
+substring$ -- 7
+swap$ -- 4
+text.length$ -- 1
+text.prefix$ -- 1
+top$ -- 0
+type$ -- 8
+warning$ -- 3
+while$ -- 2
+width$ -- 2
+write$ -- 18
+(There were 3 warnings)
