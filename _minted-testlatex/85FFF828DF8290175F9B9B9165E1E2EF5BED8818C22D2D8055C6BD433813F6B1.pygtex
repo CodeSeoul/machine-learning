@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+          \PYG{c+c1}{\PYGZsh{} This program adds two numbers}
+          \PYG{n}{num1} \PYG{o}{=} \PYG{l+m+mf}{1.5}
+          \PYG{n}{num2} \PYG{o}{=} \PYG{l+m+mf}{6.3}
+          \PYG{c+c1}{\PYGZsh{} Add two numbers}
+          \PYG{n+nb}{sum} \PYG{o}{=} \PYG{n}{num1} \PYG{o}{+} \PYG{n}{num2}
+          \PYG{c+c1}{\PYGZsh{} Display the sum}
+          \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}The sum of }\PYG{l+s+si}{\PYGZob{}0\PYGZcb{}}\PYG{l+s+s1}{ and }\PYG{l+s+si}{\PYGZob{}1\PYGZcb{}}\PYG{l+s+s1}{ is }\PYG{l+s+si}{\PYGZob{}2\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{num1}\PYG{p}{,} \PYG{n}{num2}\PYG{p}{,} \PYG{n+nb}{sum}\PYG{p}{))}
+\end{Verbatim}

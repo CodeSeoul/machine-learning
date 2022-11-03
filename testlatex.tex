@@ -9,7 +9,7 @@
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, 
 \usepackage{listings}
-
+\usepackage{minted}
 
 \title[CodeSeoul] % (optional, only for long titles)
 	{Optimization algorithms in deep learning}
@@ -26,9 +26,9 @@
 % some change
 \begin{document}
     %\maketitle
-    \begin{frame}
-    \titlepage % Print the title page as the first slide
-    \end{frame}
+    % \begin{frame}
+    % \titlepage % Print the title page as the first slide
+    % \end{frame}
 
     \begin{frame}
     \frametitle{Overview} % Table of contents slide, comment this block out to remove it
@@ -36,14 +36,20 @@
     \end{frame}
 
     \begin{frame}[fragile]
-    \begin{lstlisting}
-        for input, target in dataset:
-          optimizer.zero_grad()
-          output = model(input)
-          loss = loss_fn(output, target)
-          loss.backward()
-          optimizer.step()
-    \end{lstlisting}
+      \frametitle{Python Code listing in Beamer}
+      The following Python code adds two numbers and display the result using \verb|print()| function:
+      \rule{\textwidth}{1pt}
+      \scriptsize
+      \begin{minted}{python}
+          # This program adds two numbers
+          num1 = 1.5
+          num2 = 6.3
+          # Add two numbers
+          sum = num1 + num2
+          # Display the sum
+          print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))
+      \end{minted}
+      \rule{\textwidth}{1pt}
     \end{frame}
 
     \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
@@ -52,7 +58,6 @@
     
     This statement requires citation.~\cite{test1} 
     \end{frame}
-
 
     \begin{frame}[t, allowframebreaks]
     \frametitle{References}

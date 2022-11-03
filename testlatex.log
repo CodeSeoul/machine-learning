@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.11.1)  3 NOV 2022 02:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.11.1)  3 NOV 2022 16:14
 entering extended mode
- restricted \write18 enabled.
+ \write18 enabled.
  %&-line parsing enabled.
-**testlatex
+**testlatex.tex
 (./testlatex.tex
 LaTeX2e <2020-02-02> patch level 2
 L3 programming layer <2020-02-14>
@@ -698,10 +698,142 @@ File: listings.cfg 2019/09/10 1.8c listings configuration
 ))
 Package: listings 2019/09/10 1.8c (Carsten Heinz)
 
+(/usr/share/texlive/texmf-dist/tex/latex/minted/minted.sty
+Package: minted 2017/07/19 v2.5 Yet another Pygments shim for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/fvextra/fvextra.sty
+Package: fvextra 2019/02/04 v1.4 fvextra - extensions and patches for fancyvrb
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2020/01/13 v3.5 verbatim text (tvz,hv)
+\FV@CodeLineNo=\count323
+\FV@InFile=\read3
+\FV@TabBox=\box75
+\c@FancyVerbLine=\count324
+\FV@StepNumber=\count325
+\FV@OutFile=\write5
+)
+(/usr/share/texlive/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+)
+(/usr/share/texlive/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2005/11/02 line numbers on paragraphs v4.41
+\linenopenalty=\count326
+\output=\toks44
+\linenoprevgraf=\count327
+\linenumbersep=\dimen294
+\linenumberwidth=\dimen295
+\c@linenumber=\count328
+\c@pagewiselinenumber=\count329
+\c@LN@truepage=\count330
+\c@internallinenumber=\count331
+\c@internallinenumbers=\count332
+\quotelinenumbersep=\dimen296
+\bframerule=\dimen297
+\bframesep=\dimen298
+\bframebox=\box76
+LaTeX Info: Redefining \\ on input line 3056.
+)
+\c@FV@TrueTabGroupLevel=\count333
+\c@FV@TrueTabCounter=\count334
+\FV@TabBox@Group=\box77
+\FV@TmpLength=\skip63
+\c@FV@HighlightLinesStart=\count335
+\c@FV@HighlightLinesStop=\count336
+\FV@LoopCount=\count337
+\FV@NCharsBox=\box78
+\FV@BreakIndent=\dimen299
+\FV@BreakIndentNChars=\count338
+\FV@BreakSymbolSepLeft=\dimen300
+\FV@BreakSymbolSepLeftNChars=\count339
+\FV@BreakSymbolSepRight=\dimen301
+\FV@BreakSymbolSepRightNChars=\count340
+\FV@BreakSymbolIndentLeft=\dimen302
+\FV@BreakSymbolIndentLeftNChars=\count341
+\FV@BreakSymbolIndentRight=\dimen303
+\FV@BreakSymbolIndentRightNChars=\count342
+\c@FancyVerbLineBreakLast=\count343
+\FV@LineBox=\box79
+\FV@LineIndentBox=\box80
+\FV@LineWidth=\dimen304
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count344
+\calc@Bcount=\count345
+\calc@Adimen=\dimen305
+\calc@Bdimen=\dimen306
+\calc@Askip=\skip64
+\calc@Bskip=\skip65
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count346
+\calc@Cskip=\skip66
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/shellesc.sty
+Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
+Package shellesc Info: Unrestricted shell escape enabled on input line 75.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
+
+(/usr/share/texlive/texmf-dist/tex/generic/catchfile/catchfile.sty
+Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+)
+runsystem(uname -s > "testlatex.w18")...executed.
+
+ (./testlatex.w18)
+runsystem(rm -- "testlatex.w18")...executed.
+
+) (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
+\integerpart=\count347
+\decimalpart=\count348
+)
+Package: xstring 2019/02/06 v1.83 String manipulations (CT)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip67
+\fb@frw=\dimen307
+\fb@frh=\dimen308
+\FrameRule=\dimen309
+\FrameSep=\dimen310
+)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count349
+\float@exts=\toks45
+\float@box=\box81
+\@float@everytoks=\toks46
+\@floatcapt=\box82
+)
+\minted@appexistsfile=\read4
+\minted@bgbox=\box83
+\minted@code=\write6
+\c@minted@FancyVerbLineTemp=\count350
+\c@minted@pygmentizecounter=\count351
+\@float@every@listing=\toks47
+\c@listing=\count352
+)
+runsystem(mkdir -p _minted-testlatex)...executed.
+
+runsystem(which pygmentize && touch testlatex.aex)...executed.
+
+runsystem(rm testlatex.aex)...executed.
+
+
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count323
-\l__pdf_internal_box=\box75
+\l__kernel_color_stack_int=\count353
+\l__pdf_internal_box=\box84
 )
 (./testlatex.aux)
 \openout1 = `testlatex.aux'.
@@ -759,17 +891,17 @@ LaTeX Font Info:    ... okay on input line 27.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count324
-\scratchdimen=\dimen294
-\scratchbox=\box76
-\nofMPsegments=\count325
-\nofMParguments=\count326
-\everyMPshowfont=\toks44
-\MPscratchCnt=\count327
-\MPscratchDim=\dimen295
-\MPnumerator=\count328
-\makeMPintoPDFobject=\count329
-\everyMPtoPDFconversion=\toks45
+\scratchcounter=\count354
+\scratchdimen=\dimen311
+\scratchbox=\box85
+\nofMPsegments=\count355
+\nofMParguments=\count356
+\everyMPshowfont=\toks48
+\MPscratchCnt=\count357
+\MPscratchDim=\dimen312
+\MPnumerator=\count358
+\makeMPintoPDFobject=\count359
+\everyMPtoPDFconversion=\toks49
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -780,7 +912,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box77
+\AtBeginShipoutBox=\box86
 Package hyperref Info: Link coloring OFF on input line 27.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -792,15 +924,15 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count330
+\c@section@level=\count360
 )
 LaTeX Info: Redefining \ref on input line 27.
 LaTeX Info: Redefining \pageref on input line 27.
 LaTeX Info: Redefining \nameref on input line 27.
 
 (./testlatex.out) (./testlatex.out)
-\@outlinefile=\write5
-\openout5 = `testlatex.out'.
+\@outlinefile=\write7
+\openout7 = `testlatex.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 27.
@@ -868,60 +1000,76 @@ Dictionary: translator-numbers-dictionary, Language: English
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-theorem-dictiona
 ry-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
+) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 )
-\c@lstlisting=\count331
- (./testlatex.nav) [1
+\c@lstlisting=\count361
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./testlatex.toc) [2
+(./testlatex.nav) (./testlatex.toc) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+\openout4 = `testlatex.vrb'.
+
+ (./testlatex.vrb
+\openout5 = `testlatex.pyg'.
+
+ (./_minted-testlatex/default-pyg-prefix.pygstyle)
+(./_minted-testlatex/default.pygstyle)
+(./_minted-testlatex/85FFF828DF8290175F9B9B9165E1E2EF5BED8818C22D2D8055C6BD4338
+13F6B1.pygtex
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <8> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 8.
+)) [2
 
 ]
 \openout4 = `testlatex.vrb'.
 
  (./testlatex.vrb) [3
 
-]
-\openout4 = `testlatex.vrb'.
-
- (./testlatex.vrb)
-[4
-
-] (./testlatex.bbl) [5
+] (./testlatex.bbl) [4
 
  </usr/share/texlive/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>]
-\tf@nav=\write6
-\openout6 = `testlatex.nav'.
+\tf@nav=\write8
+\openout8 = `testlatex.nav'.
 
-\tf@toc=\write7
-\openout7 = `testlatex.toc'.
+\tf@toc=\write9
+\openout9 = `testlatex.toc'.
 
-\tf@snm=\write8
-\openout8 = `testlatex.snm'.
+\tf@snm=\write10
+\openout10 = `testlatex.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 63.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 63.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 68.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 68.
  (./testlatex.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 63.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 63.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 68.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 68.
 Package rerunfilecheck Info: File `testlatex.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+runsystem(rm testlatex.pyg)...executed.
+
  ) 
 Here is how much of TeX's memory you used:
- 19275 strings out of 483183
- 358304 string characters out of 5966292
- 606280 words of memory out of 5000000
- 33833 multiletter control sequences out of 15000+600000
- 534674 words of font info for 32 fonts, out of 8000000 for 9000
+ 21803 strings out of 483183
+ 415317 string characters out of 5966292
+ 704355 words of memory out of 5000000
+ 36287 multiletter control sequences out of 15000+600000
+ 535010 words of font info for 34 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 54i,15n,57p,772b,1032s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on testlatex.pdf (5 pages, 64093 bytes).
+ 54i,15n,57p,776b,560s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Navigation5} has been referenced but does not exi
+st, replaced by a fixed one
+
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on testlatex.pdf (4 pages, 74114 bytes).
 PDF statistics:
- 181 PDF objects out of 1000 (max. 8388607)
- 157 compressed objects within 2 object streams
- 12 named destinations out of 1000 (max. 500000)
+ 164 PDF objects out of 1000 (max. 8388607)
+ 139 compressed objects within 2 object streams
+ 11 named destinations out of 1000 (max. 500000)
  43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
