@@ -5,6 +5,9 @@
 \usecolortheme{default}
 }
 %\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{bibentry}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, 
@@ -33,6 +36,29 @@
     \begin{frame}
     \frametitle{Overview} % Table of contents slide, comment this block out to remove it
     \tableofcontents 
+    \end{frame}
+
+    \begin{frame}
+      \frametitle{Stochastic Gradient Descent (SGD)} % Table of contents slide, comment this block out to remove it
+      \begin{block}{Algorithm}
+        Update step:
+        \begin{equation}    % <--- deleted empty lines
+          \theta_{t+1} = \theta_{t} - \eta \cdot \nabla_{\theta}J(\theta_t)
+        \end{equation}
+      \end{block}
+    \end{frame}
+
+    \begin{frame}
+      \frametitle{SGD with Momentum} % Table of contents slide, comment this block out to remove it
+      \begin{block}{Algorithm}
+        Update step:
+        \begin{equation}    % <--- deleted empty lines
+          v_{t,i} = \gamma \cdot v_{t-1,i} + \nabla_{\theta}J(\theta_{t,i})
+        \end{equation}
+        \begin{equation}    % <--- deleted empty lines
+          \theta_{t+1} = \theta_{t} - \eta \cdot v_{t,i}
+        \end{equation}
+      \end{block}
     \end{frame}
 
     \begin{frame}[fragile]
