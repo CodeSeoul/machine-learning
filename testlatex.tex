@@ -62,20 +62,33 @@
     \end{frame}
 
     \begin{frame}[fragile]
-      \frametitle{Python Code listing in Beamer}
-      The following Python code adds two numbers and display the result using \verb|print()| function:
+      \frametitle{Optimizers in PyTorch}
+
+      Vanilla training loop in \verb|PyTorch|:
       \rule{\textwidth}{1pt}
       \scriptsize
       \begin{minted}{python}
-          # This program adds two numbers
-          num1 = 1.5
-          num2 = 6.3
-          # Add two numbers
-          sum = num1 + num2
-          # Display the sum
-          print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))
+          for input, target in dataset:
+            optimizer.zero_grad()
+            output = model(input)
+            loss = loss_fn(output, target)
+            loss.backward()
+            optimizer.step()
       \end{minted}
       \rule{\textwidth}{1pt}
+      
+      \normalsize
+      \vspace{1cm}
+      How to use an optimizer:
+      \rule{\textwidth}{1pt}
+      \scriptsize
+      \begin{minted}{python}
+        optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+        #optimizer = optim.Adam(model.parameters(), lr=0.0001)
+      \end{minted}
+      \rule{\textwidth}{1pt}
+      
+
     \end{frame}
 
     \begin{frame}{First images in beamer}
