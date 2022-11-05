@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-        \PYG{n}{optimizer} \PYG{o}{=} \PYG{n}{optim}\PYG{o}{.}\PYG{n}{SGD}\PYG{p}{(}\PYG{n}{model}\PYG{o}{.}\PYG{n}{parameters}\PYG{p}{(),} \PYG{n}{lr}\PYG{o}{=}\PYG{l+m+mf}{0.01}\PYG{p}{,} \PYG{n}{momentum}\PYG{o}{=}\PYG{l+m+mf}{0.9}\PYG{p}{)}
-        \PYG{c+c1}{\PYGZsh{}optimizer = optim.Adam(model.parameters(), lr=0.0001)}
-\end{Verbatim}

@@ -1,4 +1,25 @@
-\frametitle{Citation}
-    An example of the \verb|\cite| command to cite within the presentation:\\~
+\frametitle{SGD with Momentum}
+      \vspace{0.2cm}
+      \rule{\textwidth}{1pt}
+      \scriptsize
+      \begin{minted}{python}
+        from torch.optim.optimizer import Optimizer
 
-    This statement requires citation.~\cite{test1}
+        class CustomSGDMomentum(Optimizer):
+          def __init__(self, model_params, lr=1e-3, momentum=0.9):
+              self.model_params = list(model_params)
+              self.lr = lr
+              self.momentum = momentum
+              self.v = [torch.zeros_like(p) for p in self.model_params]
+
+          def zero_grad(self):
+              for param in self.model_params:
+                  param.grad = None
+
+          @torch.no_grad()
+          def step(self):
+              for param, v in zip(self.model_params, self.v):
+                  v.mul_(self.momentum).add_(param.grad)
+                  param.sub_(self.lr * v)
+      \end{minted}
+      \rule{\textwidth}{1pt}
