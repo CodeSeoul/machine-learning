@@ -1,5 +1,0 @@
-[0] Config.pm:304> INFO - This is Biber 2.14 (beta)
-[0] Config.pm:307> INFO - Logfile is '%.blg'
-[56] biber:322> INFO - === 토 11월  5, 2022, 12:25:05
-[88] Utils.pm:309> ERROR - Cannot find '%.bcf'!
-[89] Biber.pm:132> INFO - ERRORS: 1
