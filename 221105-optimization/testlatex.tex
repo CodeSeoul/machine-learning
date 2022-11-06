@@ -23,6 +23,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{booktabs}
 \usepackage[USenglish,british,american,australian,english]{babel}
 %\usepackage{bibentry}
 %\usepackage[backend=biber]{biblatex}
@@ -37,6 +40,7 @@
   year={1999},
   publisher={Elsevier}
 }
+
 @article{duchi2011adaptive,
   title={Adaptive subgradient methods for online learning and stochastic optimization.},
   author={Duchi, John and Hazan, Elad and Singer, Yoram},
@@ -44,6 +48,21 @@
   volume={12},
   number={7},
   year={2011}
+}
+
+@article{ruder2016overview,
+  title={An overview of gradient descent optimization algorithms},
+  author={Ruder, Sebastian},
+  journal={arXiv preprint arXiv:1609.04747},
+  year={2016}
+}
+
+@software{Novik_torchoptimizers,
+    title        = {{torch-optimizer -- collection of optimization algorithms for PyTorch.}},
+    author       = {Novik, Mykola},
+    year         = 2020,
+    month        = 1,
+    version      = {1.0.1}
 }
 \end{filecontents}
 \usepackage[style=numeric,backend=biber,autocite=plain,sorting=none]{biblatex}
@@ -84,20 +103,23 @@
 \def\nstyle{int(\lay<\Nnodlen?min(2,\lay):3)} % map layer number onto 1, 2, or 3
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\setbeamertemplate{caption}[numbered]
+\AtBeginBibliography{\small}
 
 %Includes "References" in the table of contents
 
 \title[CodeSeoul] % (optional, only for long titles)
 	{Optimization algorithms in deep learning}
 
-\author[AI *** Research Paper Review] % (optional, for multiple authors)
-	{Sanzhar Askaruly}
+\author[AI Research Paper Review] % (optional, for multiple authors)
+	{Sanzhar Askaruly (San)}
 
 \institute[] % (optional)
 	{ Ulsan National Institute of Science and Technology\newline
 	  Ph.D. Candidate in Biomedical Engineering}
 
-\date{\today} 
+\date[November 5]
+{CodeSeoul ML Meetup \\November 5, 2022}
 
 % some change
 \begin{document}
@@ -111,6 +133,12 @@
     % \tableofcontents 
     % \end{frame}
 
+    \begin{frame}{Overview}
+      What we'll cover today:
+      \tableofcontents
+    \end{frame}
+    
+    \section{What is optimization?} %
     \begin{frame}{Optimization}
       \begin{center}
         \begin{huge}
@@ -126,14 +154,18 @@
 
     \begin{frame}{What is gradient descent optimization?}
       \begin{center}
-          \includegraphics[width=0.8\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/images/what_is_gd.png}
+          \includegraphics[width=0.8\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/221105-optimization/images/what_is_gd.png}
       \end{center}
     \end{frame}
 
+
+    \section{Algorithms} %
+
+    \subsection{SGD (Stochastic gradient descent)}
     \begin{frame}
       \frametitle{Stochastic Gradient Descent (SGD)} % Table of contents slide, comment this block out to remove it
       \begin{block}{Algorithm}
-        Update step:
+        Update step ~\cite{ruder2016overview}:
         \begin{equation}
           \theta_{t+1} = \theta_{t} - \eta \cdot \nabla_{\theta}J(\theta_t)
         \end{equation}
@@ -149,6 +181,7 @@
     \end{frame}
 
 
+
     \begin{frame}[fragile]
       \frametitle{Stochastic Gradient Descent (SGD)}
       \vspace{0.2cm}
@@ -162,7 +195,7 @@
       
       \normalsize
       \vspace{0.2cm}
-      How we can create our "native" class:
+      How we can create our "native" class ~\cite{Novik_torchoptimizers}:
       \rule{\textwidth}{1pt}
       \scriptsize
       \begin{minted}{python}
@@ -185,6 +218,8 @@
       \rule{\textwidth}{1pt}
     \end{frame}
 
+
+    \subsection{SGD with Momentum}
     \begin{frame}
       \frametitle{SGD with Momentum} % Table of contents slide, comment this block out to remove it
       
@@ -199,11 +234,13 @@
           \end{column}
           \begin{column}{0.5\textwidth}  %%<--- here
               \begin{center}
-                \includegraphics[width=0.8\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/images/ball_momentum.jpeg}
+                \includegraphics[width=0.8\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/221105-optimization/images/ball_momentum.jpeg}
               \end{center}
           \end{column}
       \end{columns}
     \end{frame}
+
+
 
     \begin{frame}
       \frametitle{SGD with Momentum}
@@ -228,9 +265,12 @@
       \end{block}
     \end{frame}
 
+
+
     \begin{frame}[fragile]
       \frametitle{SGD with Momentum}
       \vspace{0.2cm}
+      How we can create "native" \verb|SGDMomentum| class:
       \rule{\textwidth}{1pt}
       \scriptsize
       \begin{minted}{python}
@@ -258,88 +298,20 @@
 
 
 
-
     \begin{frame}
       \begin{center}
-      \frametitle{SGD with Momentum~\cite{qian1999momentum}}
-      \includegraphics[width=0.8\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/images/momentum.jpeg}
+      \frametitle{SGD with Momentum}
+      \includegraphics[width=0.8\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/221105-optimization/images/momentum.jpeg}
       \end{center}
     \end{frame}
 
 
-
-    \begin{frame}{Experiment}
-    \begin{flushleft}
-      A vanilla MLP (Multilayer Perceptron)
-    \end{flushleft}
-    
-    
-    \begin{center}  
-    % NEURAL NETWORK no text
-    \begin{tikzpicture}[x=2.2cm,y=1.4cm]
-      \message{^^JNeural network without text}
-      \readlist\Nnod{4,5,5,5,3} % array of number of nodes per layer
-      
-      \message{^^J  Layer}
-      \foreachitem \N \in \Nnod{ % loop over layers
-        \def\lay{\Ncnt} % alias of index of current layer
-        \pgfmathsetmacro\prev{int(\Ncnt-1)} % number of previous layer
-        \message{\lay,}
-        \foreach \i [evaluate={\y=\N/2-\i; \x=\lay; \n=\nstyle;}] in {1,...,\N}{ % loop over nodes
-          
-          % NODES
-          \node[node \n] (N\lay-\i) at (\x,\y) {};
-          
-          % CONNECTIONS
-          \ifnum\lay>1 % connect to previous layer
-            \foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
-              \draw[connect,white,line width=1.2] (N\prev-\j) -- (N\lay-\i);
-              \draw[connect] (N\prev-\j) -- (N\lay-\i);
-              %\draw[connect] (N\prev-\j.0) -- (N\lay-\i.180); % connect to left
-            }
-          \fi % else: nothing to connect first layer
-          
-        }
-      }
-      
-      % LABELS
-      \node[above=5,align=center,mygreen!60!black] at (N1-1.90) {input\\[-0.2em]layer};
-      \node[above=2,align=center,myblue!60!black] at (N3-1.90) {hidden layer};
-      \node[above=10,align=center,myred!60!black] at (N\Nnodlen-1.90) {output\\[-0.2em]layer};
-      
-    \end{tikzpicture}
-
-    \end{center}
-    \end{frame}
-
-
-    \begin{frame}{Experiment}
-      \begin{flushleft}
-        MNIST dataset
-      \end{flushleft}
-      \begin{center}
-          \includegraphics[scale=0.4]{/home/suzy/gitrepos/tuttelikz/221105/images/mnist.png}
-      \end{center}
-    \end{frame}
-    
-    \begin{frame}{Experiment}
-      \centering
-        \includegraphics[width=1.0\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/images/sgd_mom.png}
-
-        %https://github.com/tuttelikz/221105-meetup-codeseoul
-      \end{frame}
-
-    % \begin{frame}[allowframebreaks]
-    %   \frametitle{References}
-    %   \bibliographystyle{amsalpha}
-    %   \bibliography{/home/suzy/gitrepos/tuttelikz/221105/bibfile.bib}
-    % \end{frame}
-      
+    \subsection{Adagrad (Adaptive learning rate)}
     \begin{frame}
       \frametitle{Adagrad}
       \begin{block}{Algorithm}
 
-        Update step:
+        Update step ~\cite{duchi2011adaptive}:
         \begin{equation}    % <--- deleted empty lines
           \theta_{t+1,i} = \theta_{t,i} - \frac{\eta}{\sqrt{G_{t,i}}+ \epsilon} \cdot \nabla_{\theta}J(\theta_{t,i})
         \end{equation}
@@ -362,9 +334,11 @@
     \end{frame}
 
 
+
     \begin{frame}[fragile]
       \frametitle{Adagrad}
       \vspace{0.2cm}
+      How we can create "native" \verb|Adagrad| class:
       \rule{\textwidth}{1pt}
       \scriptsize
       \begin{minted}{python}
@@ -390,18 +364,139 @@
       \end{minted}
       \rule{\textwidth}{1pt}
     \end{frame}
+
+    
+    \section{Experiments} %
+    \begin{frame}{Experiment}
+      \begin{flushleft}
+        A vanilla MLP (Multilayer Perceptron)
+      \end{flushleft}
+    
+      \begin{center}  
+      % NEURAL NETWORK no text
+      \begin{tikzpicture}[x=2.2cm,y=1.4cm]
+        \message{^^JNeural network without text}
+        \readlist\Nnod{4,5,5,5,3} % array of number of nodes per layer
+        
+        \message{^^J  Layer}
+        \foreachitem \N \in \Nnod{ % loop over layers
+          \def\lay{\Ncnt} % alias of index of current layer
+          \pgfmathsetmacro\prev{int(\Ncnt-1)} % number of previous layer
+          \message{\lay,}
+          \foreach \i [evaluate={\y=\N/2-\i; \x=\lay; \n=\nstyle;}] in {1,...,\N}{ % loop over nodes
+            
+            % NODES
+            \node[node \n] (N\lay-\i) at (\x,\y) {};
+            
+            % CONNECTIONS
+            \ifnum\lay>1 % connect to previous layer
+              \foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
+                \draw[connect,white,line width=1.2] (N\prev-\j) -- (N\lay-\i);
+                \draw[connect] (N\prev-\j) -- (N\lay-\i);
+                %\draw[connect] (N\prev-\j.0) -- (N\lay-\i.180); % connect to left
+              }
+            \fi % else: nothing to connect first layer
+            
+          }
+        }
+        
+        % LABELS
+        \node[above=5,align=center,mygreen!60!black] at (N1-1.90) {input\\[-0.2em]layer};
+        \node[above=2,align=center,myblue!60!black] at (N3-1.90) {hidden layer};
+        \node[above=10,align=center,myred!60!black] at (N\Nnodlen-1.90) {output\\[-0.2em]layer};
+        
+      \end{tikzpicture}
+
+      \end{center}
+    \end{frame}
     
 
-    \begin{frame}{Experiment}
-      \centering
-        \includegraphics[width=1.0\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/images/curves.png}
+    \nocite{*}
 
+
+    \begin{frame}{Experiment}
+      \begin{flushleft}
+        MNIST dataset ~\cite{lecun1998gradient}
+      \end{flushleft}
+      \vspace{0.1cm}
+      \begin{center}
+          \includegraphics[scale=0.4]{/home/suzy/gitrepos/tuttelikz/221105/221105-optimization/images/mnist.png}
+      \end{center}
+    \end{frame}
+
+    \begin{frame}{Experiment}
+      \begin{figure}[htb]
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/221105-optimization/images/sgd_mom.png}
+        \end{center}
+        \begin{center}
+          \caption{SGD vs momentum [git: \href{https://github.com/CodeSeoul/machine-learning/tree/master/221105-optimization}{CodeSeoul/machine-learning}]}
+        \end{center}
+          %https://github.com/tuttelikz/221105-meetup-codeseoul
+      \end{figure}
+    \end{frame}
+
+    \begin{frame}{Experiment}
+      \begin{figure}[htb]
+      \centering
+        \includegraphics[width=1.0\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/221105-optimization/images/curves.png}
+        \caption{SGD vs momentum vs Adagrad [git: \href{https://github.com/CodeSeoul/machine-learning/tree/master/221105-optimization}{CodeSeoul/machine-learning}]}
         %https://github.com/tuttelikz/221105-meetup-codeseoul
-      \end{frame}
-  
-    \begin{frame}
-    \printbibliography
-  \end{frame} 
+      \end{figure}
+    \end{frame}
+    
+
+    \section{Summary} %
+    \subsection{Discussion}
+    \begin{frame}{Discussion}  
+      \begin{columns}
+        \begin{column}{0.5\textwidth}  %%<--- here
+          \begin{figure}[htb]
+            \begin{center}
+              \includegraphics[width=0.6\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/221105-optimization/images/trajectory.png}
+              \caption{Trajectories of optimization algorithms in high-dimensional space~\cite{ruder2016overview}}
+            \end{center}
+          \end{figure}
+        \end{column}
+        \begin{column}{0.5\textwidth}  %%<--- here
+          \begin{figure}[htb]
+            \begin{center}
+              \includegraphics[width=0.7\textwidth]{/home/suzy/gitrepos/tuttelikz/221105/221105-optimization/images/optimal_learning_rate.jpeg}
+              \caption{Selecting learning rate (lr)~\cite{mohanty_2019}}
+            \end{center}
+          \end{figure}
+        \end{column}
+    \end{columns}
+      \begin{itemize}
+        \item The randomness introduced by SGD allows to reach better minimum. But in cases with many local minima, SGD may still get stuck.
+        \item A systematic way to choose a good lr is by initially assigning it a very low value and increasing it slowly until the loss stops decreasing.
+      \end{itemize}
+
+    \end{frame}
+
+
+    \subsection{Practicum}
+    \begin{frame}{Practicum}
+      \begin{center}
+      \begin{huge}Thank you for your attention!\end{huge}
+      \end{center}
+
+        \vspace{0.5cm}
+        \begin{itemize}
+          \item Workshop contents: \\
+            \begin{small}\url{https://github.com/CodeSeoul/machine-learning/tree/master/221105-optimization}
+            \end{small}
+          \item Follow-up QA? \\ 
+            \begin{small}\url{http://discord.com/users/tuttelikz}
+            \end{small}
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}{References}
+      \printbibliography  
+    \end{frame}
+
 \end{document}
 
 
