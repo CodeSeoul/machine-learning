@@ -1,25 +1,9 @@
-% \RequirePackage{filecontents}
-% \begin{filecontents}{\jobname.bib}
-% @article{qian1999momentum,
-% title={On the momentum term in gradient descent learning algorithms},
-% author={Qian, Ning},
-% journal={Neural networks},
-% volume={12},
-% number={1},
-% pages={145-151},
-% year={1999},
-% publisher={Elsevier}
-% }
-% \end{filecontents}
-
-
 \documentclass{beamer}
 
 \mode<presentation> {
 \usetheme{Boadilla}
 \usecolortheme{default}
 }
-%\usepackage{natbib}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -27,8 +11,6 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage[USenglish,british,american,australian,english]{babel}
-%\usepackage{bibentry}
-%\usepackage[backend=biber]{biblatex}
 \begin{filecontents}{\jobname.bib}
 @article{qian1999momentum,
   title={On the momentum term in gradient descent learning algorithms},
@@ -109,14 +91,14 @@
 %Includes "References" in the table of contents
 
 \title[CodeSeoul] % (optional, only for long titles)
-	{Optimization algorithms in deep learning}
+  {Optimization algorithms in deep learning}
 
 \author[AI Research Paper Review] % (optional, for multiple authors)
-	{Sanzhar Askaruly (San)}
+  {Sanzhar Askaruly (San)}
 
 \institute[] % (optional)
-	{ Ulsan National Institute of Science and Technology\newline
-	  Ph.D. Candidate in Biomedical Engineering}
+  { Ulsan National Institute of Science and Technology\newline
+    Ph.D. Candidate in Biomedical Engineering}
 
 \date[November 5]
 {CodeSeoul ML Meetup \\November 5, 2022}
@@ -498,13 +480,3 @@
     \end{frame}
 
 \end{document}
-
-
-% @article{test1,
-% title = {Commercial Banks as Creators of 'Money'},
-% author = {Tobin, James},
-% year = {1963},
-% institution = {Cowles Foundation for Research in Economics, Yale University},
-% number = {159},
-% url = {http://EconPapers.repec.org/RePEc:cwl:cwldpp:159}
-% }

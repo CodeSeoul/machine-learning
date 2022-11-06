@@ -11,7 +11,7 @@ This is the workshop contents from meetup on November 5, 2022.
 ## Materials
 
 - Slides:  
-https://github.com/CodeSeoul/machine-learning/blob/master/221105-optimization/testlatex.pdf
+https://github.com/CodeSeoul/machine-learning/blob/master/221105-optimization/lecture.pdf
 
 - Jupyter Notebook:  
 https://github.com/CodeSeoul/machine-learning/blob/master/221105-optimization/optimizers.ipynb
