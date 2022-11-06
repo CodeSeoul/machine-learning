@@ -1,4 +1,4 @@
-# Machie learning
+# Machine learning
 
 ## Description
 
