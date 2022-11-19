@@ -22,11 +22,11 @@ distinguish between the real and fake images.
 Build the docker image locally
 
 ```shell
-cd machine-learning/22119-gan
+cd machine-learning/221119-gan
 docker build -t gan-tutorial -f gan.Dockerfile .
 ```
 
-Afterwards start up the docker container:
+Afterwards, start up the docker container:
 
 ```shell
 # start up container
@@ -42,8 +42,10 @@ To access the notebook, open this file in a browser:
 file:///root/.local/share/jupyter/runtime/nbserver-9-open.html
 Or copy and paste one of these URLs:
 http://5fd51f27b488:8888/?token=42c0b4c865d69c064cf1477256e3baf05d9a50c1c89e92cb
-or http://127.0.0.1:888/?token=42c0b4c865d69c064cf1477256e3baf05d9a50c1c89e92cb
+or http://127.0.0.1:8888/?token=42c0b4c865d69c064cf1477256e3baf05d9a50c1c89e92cb
 ```
 
-Copy and paste: `http://127.0.0.1:888/?token=42c0b4c865d69c064cf1477256e3baf05d9a50c1c89e92cb` to your browser and
-you are good to go.
+Copy and paste: `http://127.0.0.1:8888/?token=42c0b4c865d69c064cf1477256e3baf05d9a50c1c89e92cb` to your browser and
+you are good to go. 
+
+Note: The token value will differ each time, so make sure to copy and paste the value from your terminal and not the `README.md`
