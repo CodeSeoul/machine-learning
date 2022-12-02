@@ -1,0 +1,8 @@
+# Often good to pin versions in real-world. A version up from a third-party vendor
+# can unexpectedly break your application
+jupyterlab
+numpy
+matplotlib
+torch==1.12.1
+torchvision==0.13.1
+tqdm
