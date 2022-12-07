@@ -1,0 +1,419 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+\usetheme{Boadilla}
+\usecolortheme{default}
+}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{filecontents}
+\usepackage{pgfplots, pgfplotstable}
+\pgfplotsset{compat=1.16}
+\usepackage[USenglish,british,american,australian,english]{babel}
+\begin{filecontents}{\jobname.bib}
+@article{qian1999momentum,
+  title={On the momentum term in gradient descent learning algorithms},
+  author={Qian, Ning},
+  journal={Neural networks},
+  volume={12},
+  number={1},
+  pages={145--151},
+  year={1999},
+  publisher={Elsevier}
+}
+
+@article{duchi2011adaptive,
+  title={Adaptive subgradient methods for online learning and stochastic optimization.},
+  author={Duchi, John and Hazan, Elad and Singer, Yoram},
+  journal={Journal of machine learning research},
+  volume={12},
+  number={7},
+  year={2011}
+}
+
+@article{ruder2016overview,
+  title={An overview of gradient descent optimization algorithms},
+  author={Ruder, Sebastian},
+  journal={arXiv preprint arXiv:1609.04747},
+  year={2016}
+}
+
+@software{Novik_torchoptimizers,
+    title        = {{torch-optimizer -- collection of optimization algorithms for PyTorch.}},
+    author       = {Novik, Mykola},
+    year         = 2020,
+    month        = 1,
+    version      = {1.0.1}
+}
+
+\end{filecontents}
+\usepackage[style=numeric,backend=biber,autocite=plain,sorting=none]{biblatex}
+\addbibresource{\jobname.bib}
+  
+\usepackage{graphicx} % Allows including images
+
+\usepackage{booktabs} % Allows the use of \toprule, 
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{tikz}
+%\usepackage{etoolbox} % for \ifthen
+\usepackage{listofitems} % for \readlist to create arrays
+\usetikzlibrary{datavisualization, arrows.meta} % for arrow size
+\usepackage[outline]{contour} % glow around text
+\contourlength{1.4pt}
+
+\tikzset{>=latex} % for LaTeX arrow head
+\usepackage{xcolor}
+
+% Scientific libs
+
+
+\def\nstyle{int(\lay<\Nnodlen?min(2,\lay):3)} % map layer number onto 1, 2, or 3
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\setbeamertemplate{caption}[numbered]
+\AtBeginBibliography{\small}
+
+%Includes "References" in the table of contents
+
+\title[CodeSeoul] % (optional, only for long titles)
+  {Dimensionality reduction techniques}
+
+\author[AI Research Paper Review] % (optional, for multiple authors)
+  {Sanzhar Askaruly (San)}
+
+\institute[] % (optional)
+  { Ulsan National Institute of Science and Technology\newline
+    Ph.D. Candidate in Biomedical Engineering}
+
+\date[December 10]
+{CodeSeoul ML Meetup \\December 10, 2022}
+
+% some change
+\begin{document}
+    %\maketitle
+    \begin{frame}
+    \titlepage % Print the title page as the first slide
+    \end{frame}
+
+    % \begin{frame}
+    % \frametitle{Overview} % Table of contents slide, comment this block out to remove it
+    % \tableofcontents 
+    % \end{frame}
+
+    \begin{frame}{Overview}
+      What we'll cover today:
+      \tableofcontents
+    \end{frame}
+    
+    \section{Motivation} %
+    \begin{frame}{Motivation}
+        \begin{itemize}
+            \item Relationships between data
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{What is gradient descent optimization?}
+        
+        \begin{tikzpicture}
+            \pgfplotstableread[col sep=comma,header=false]{
+                5.1,3.5,1.4,.2,Setosa
+                4.9,3,1.4,.2,Setosa
+                4.7,3.2,1.3,.2,Setosa
+                4.6,3.1,1.5,.2,Setosa
+                5,3.6,1.4,.2,Setosa
+                5.4,3.9,1.7,.4,Setosa
+                4.6,3.4,1.4,.3,Setosa
+                5,3.4,1.5,.2,Setosa
+                4.4,2.9,1.4,.2,Setosa
+                4.9,3.1,1.5,.1,Setosa
+                5.4,3.7,1.5,.2,Setosa
+                4.8,3.4,1.6,.2,Setosa
+                4.8,3,1.4,.1,Setosa
+                4.3,3,1.1,.1,Setosa
+                5.8,4,1.2,.2,Setosa
+                5.7,4.4,1.5,.4,Setosa
+                5.4,3.9,1.3,.4,Setosa
+                5.1,3.5,1.4,.3,Setosa
+                5.7,3.8,1.7,.3,Setosa
+                5.1,3.8,1.5,.3,Setosa
+                5.4,3.4,1.7,.2,Setosa
+                5.1,3.7,1.5,.4,Setosa
+                4.6,3.6,1,.2,Setosa
+                5.1,3.3,1.7,.5,Setosa
+                4.8,3.4,1.9,.2,Setosa
+                5,3,1.6,.2,Setosa
+                5,3.4,1.6,.4,Setosa
+                5.2,3.5,1.5,.2,Setosa
+                5.2,3.4,1.4,.2,Setosa
+                4.7,3.2,1.6,.2,Setosa
+                4.8,3.1,1.6,.2,Setosa
+                5.4,3.4,1.5,.4,Setosa
+                5.2,4.1,1.5,.1,Setosa
+                5.5,4.2,1.4,.2,Setosa
+                4.9,3.1,1.5,.2,Setosa
+                5,3.2,1.2,.2,Setosa
+                5.5,3.5,1.3,.2,Setosa
+                4.9,3.6,1.4,.1,Setosa
+                4.4,3,1.3,.2,Setosa
+                5.1,3.4,1.5,.2,Setosa
+                5,3.5,1.3,.3,Setosa
+                4.5,2.3,1.3,.3,Setosa
+                4.4,3.2,1.3,.2,Setosa
+                5,3.5,1.6,.6,Setosa
+                5.1,3.8,1.9,.4,Setosa
+                4.8,3,1.4,.3,Setosa
+                5.1,3.8,1.6,.2,Setosa
+                4.6,3.2,1.4,.2,Setosa
+                5.3,3.7,1.5,.2,Setosa
+                5,3.3,1.4,.2,Setosa
+                7,3.2,4.7,1.4,Versicolor
+                6.4,3.2,4.5,1.5,Versicolor
+                6.9,3.1,4.9,1.5,Versicolor
+                5.5,2.3,4,1.3,Versicolor
+                6.5,2.8,4.6,1.5,Versicolor
+                5.7,2.8,4.5,1.3,Versicolor
+                6.3,3.3,4.7,1.6,Versicolor
+                4.9,2.4,3.3,1,Versicolor
+                6.6,2.9,4.6,1.3,Versicolor
+                5.2,2.7,3.9,1.4,Versicolor
+                5,2,3.5,1,Versicolor
+                5.9,3,4.2,1.5,Versicolor
+                6,2.2,4,1,Versicolor
+                6.1,2.9,4.7,1.4,Versicolor
+                5.6,2.9,3.6,1.3,Versicolor
+                6.7,3.1,4.4,1.4,Versicolor
+                5.6,3,4.5,1.5,Versicolor
+                5.8,2.7,4.1,1,Versicolor
+                6.2,2.2,4.5,1.5,Versicolor
+                5.6,2.5,3.9,1.1,Versicolor
+                5.9,3.2,4.8,1.8,Versicolor
+                6.1,2.8,4,1.3,Versicolor
+                6.3,2.5,4.9,1.5,Versicolor
+                6.1,2.8,4.7,1.2,Versicolor
+                6.4,2.9,4.3,1.3,Versicolor
+                6.6,3,4.4,1.4,Versicolor
+                6.8,2.8,4.8,1.4,Versicolor
+                6.7,3,5,1.7,Versicolor
+                6,2.9,4.5,1.5,Versicolor
+                5.7,2.6,3.5,1,Versicolor
+                5.5,2.4,3.8,1.1,Versicolor
+                5.5,2.4,3.7,1,Versicolor
+                5.8,2.7,3.9,1.2,Versicolor
+                6,2.7,5.1,1.6,Versicolor
+                5.4,3,4.5,1.5,Versicolor
+                6,3.4,4.5,1.6,Versicolor
+                6.7,3.1,4.7,1.5,Versicolor
+                6.3,2.3,4.4,1.3,Versicolor
+                5.6,3,4.1,1.3,Versicolor
+                5.5,2.5,4,1.3,Versicolor
+                5.5,2.6,4.4,1.2,Versicolor
+                6.1,3,4.6,1.4,Versicolor
+                5.8,2.6,4,1.2,Versicolor
+                5,2.3,3.3,1,Versicolor
+                5.6,2.7,4.2,1.3,Versicolor
+                5.7,3,4.2,1.2,Versicolor
+                5.7,2.9,4.2,1.3,Versicolor
+                6.2,2.9,4.3,1.3,Versicolor
+                5.1,2.5,3,1.1,Versicolor
+                5.7,2.8,4.1,1.3,Versicolor
+                6.3,3.3,6,2.5,Virginica
+                5.8,2.7,5.1,1.9,Virginica
+                7.1,3,5.9,2.1,Virginica
+                6.3,2.9,5.6,1.8,Virginica
+                6.5,3,5.8,2.2,Virginica
+                7.6,3,6.6,2.1,Virginica
+                4.9,2.5,4.5,1.7,Virginica
+                7.3,2.9,6.3,1.8,Virginica
+                6.7,2.5,5.8,1.8,Virginica
+                7.2,3.6,6.1,2.5,Virginica
+                6.5,3.2,5.1,2,Virginica
+                6.4,2.7,5.3,1.9,Virginica
+                6.8,3,5.5,2.1,Virginica
+                5.7,2.5,5,2,Virginica
+                5.8,2.8,5.1,2.4,Virginica
+                6.4,3.2,5.3,2.3,Virginica
+                6.5,3,5.5,1.8,Virginica
+                7.7,3.8,6.7,2.2,Virginica
+                7.7,2.6,6.9,2.3,Virginica
+                6,2.2,5,1.5,Virginica
+                6.9,3.2,5.7,2.3,Virginica
+                5.6,2.8,4.9,2,Virginica
+                7.7,2.8,6.7,2,Virginica
+                6.3,2.7,4.9,1.8,Virginica
+                6.7,3.3,5.7,2.1,Virginica
+                7.2,3.2,6,1.8,Virginica
+                6.2,2.8,4.8,1.8,Virginica
+                6.1,3,4.9,1.8,Virginica
+                6.4,2.8,5.6,2.1,Virginica
+                7.2,3,5.8,1.6,Virginica
+                7.4,2.8,6.1,1.9,Virginica
+                7.9,3.8,6.4,2,Virginica
+                6.4,2.8,5.6,2.2,Virginica
+                6.3,2.8,5.1,1.5,Virginica
+                6.1,2.6,5.6,1.4,Virginica
+                7.7,3,6.1,2.3,Virginica
+                6.3,3.4,5.6,2.4,Virginica
+                6.4,3.1,5.5,1.8,Virginica
+                6,3,4.8,1.8,Virginica
+                6.9,3.1,5.4,2.1,Virginica
+                6.7,3.1,5.6,2.4,Virginica
+                6.9,3.1,5.1,2.3,Virginica
+                5.8,2.7,5.1,1.9,Virginica
+                6.8,3.2,5.9,2.3,Virginica
+                6.7,3.3,5.7,2.5,Virginica
+                6.7,3,5.2,2.3,Virginica
+                6.3,2.5,5,1.9,Virginica
+                6.5,3,5.2,2,Virginica
+                6.2,3.4,5.4,2.3,Virginica
+                5.9,3,5.1,1.8,Virginica
+            }\mydata          
+            \begin{axis}[width=7cm,height=7cm]
+            \addplot+[scatter, only marks, scatter/classes={
+                Setosa={mark=square*,blue},
+                Versicolor={mark=triangle*,red},
+                Virginica={mark=o,green}}, scatter src=explicit symbolic] table[col sep=comma, header=false, x index=0, y index=1, meta index=4] {iris.csv};
+            \legend{Setosa,Versicolor,Virginica},
+            \end{axis}
+            
+            \end{tikzpicture}
+        
+        % \addplot+[scatter, only marks, scatter/classes={Setosa={fill=red!80},
+        % Versicolor={fill=green!80},
+        % Virginica={fill=blue!80}}, scatter src=explicit symbolic] table[x index=0, y index=1, meta index=4] \mydata;
+
+
+
+        % \begin{tikzpicture}
+        %     \begin{axis}[xlabel={Length},ylabel={Width}, scatter/classes={Setosa={mark=o,draw=blue},Versicolor={mark=o,draw=red},Virginica={mark=o,draw=green}}]
+        %         % Graph column 2 versus column 0
+        %         %\addplot [only marks, scatter] table[meta index=4, x index=0,y index=2,col sep=comma] {iris.csv};
+        %         \addplot [only marks, scatter] table[x sepal.length, y sepal.width, col sep=comma] {iris.csv};
+        %         %\addplot [only marks, scatter, mark options={fill=blue}] table[meta index=4, x index=0,y index=2,col sep=comma] {iris.csv};
+        %         %\addlegendentry{Sepal}% y index+1 since humans count from 1
+                
+        %         % Graph column 1 versus column 0    
+        %         %\addplot [only marks, scatter,  mark options={fill=red}] table[meta index=4, x index=1,y index=3,col sep=comma] {iris.csv};
+        %         %\addlegendentry{Petal}
+        %     \end{axis}
+        % \end{tikzpicture}
+    \end{frame}
+
+
+    % \begin{axis}[
+    %     scatter/classes={a={mark=o,draw=black}},
+    %     xlabel = $sepal.length$,
+    %     ylabel = $sepal.width$,
+    %     title = {A Scatter Plot Example},]
+    %     \addplot [only marks, scatter] table {iris.csv};
+    % \end{axis}
+
+            % \begin{tikzpicture}
+        %     \begin{axis}[scatter/classes={a={mark=o,draw=black}}]
+        %         \addplot scatter[x index=0, y index=1, col sep=comma] table {iris.csv};
+        %     \end{axis}
+        % \end{tikzpicture}
+
+     % Graph column 1 versus column 0    
+            %\addplot scatter[x index=0,y index=1,col sep=comma] {iris.csv};
+
+
+    %\begin{axis}[xlabel={$x$},ylabel={Column Data}]
+
+    % Graph column 2 versus column 0
+    %\addplot scatter[x index=0,y index=1,col sep=comma] {iris.csv};
+    %\addlegendentry{Sepal}% y index+1 since humans count from 1
+    
+    %\addplot[scatter,only marks] table [x=sepal.length, y=sepal.width, col sep=comma] {iris.csv};
+
+    % \begin{frame}[fragile]
+    %     \frametitle{What is gradient descent optimization?}
+    %     \tikz \datavisualization
+    %     [visualize as scatter,
+    %     style sheet=cross marks]
+    %         data [format=table, read from file=iris.csv];
+    % \end{frame}
+
+    % data [format=named] {
+    %     x=0,       y={1,2,3},        set=a
+    %     x={2,3,4}, y={3,4,5,7},      set=b
+    %     x=6,       y={5,7,...,15},   set=c
+    % };
+    \section{Algorithms} %
+
+    \subsection{SGD (Stochastic gradient descent)}
+    \begin{frame}
+        
+    \end{frame}
+
+
+    \subsection{SGD with Momentum}
+    \begin{frame}
+    \end{frame}
+
+
+
+    \begin{frame}
+      \begin{center}
+      \end{center}
+    \end{frame}
+
+
+    \subsection{AS}
+    \begin{frame}
+      \frametitle{Adagrad}
+    \end{frame}
+
+
+    
+    \section{Experiments} %
+    \begin{frame}{Experiment}
+    \end{frame}
+    
+
+    \nocite{*}
+    \begin{frame}{Experiment}
+    \end{frame}
+
+    \begin{frame}{Experiment}
+    \end{frame}
+
+    \begin{frame}{Experiment}
+    \end{frame}
+    
+
+    \section{Summary} %
+    \subsection{Conclusion}
+    \begin{frame}{Conclusion}
+
+    \end{frame}
+
+
+    \subsection{Practicum}
+    \begin{frame}{Practicum}
+      \begin{center}
+      \begin{huge}Thank you for your attention!\end{huge}
+      \end{center}
+
+        \vspace{0.5cm}
+        \begin{itemize}
+          \item Workshop contents: \\
+            \begin{small}\url{https://github.com/CodeSeoul/machine-learning/tree/master/221210-pca}
+            \end{small}
+          \item Follow-up QA? \\ 
+            \begin{small}\url{http://discord.com/users/tuttelikz}
+            \end{small}
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}{References}
+      \printbibliography  
+    \end{frame}
+
+\end{document}
