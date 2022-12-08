@@ -3,15 +3,19 @@
 \mode<presentation> {
 \usetheme{Boadilla}
 \usecolortheme{default}
+\usefonttheme[onlymath]{serif}
 }
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+
 \usepackage{caption}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{array} 
 \usepackage{filecontents}
 \usepackage{pgfplots, pgfplotstable}
+
 \pgfplotsset{compat=1.16}
 \usepackage[USenglish,british,american,australian,english]{babel}
 \begin{filecontents}{\jobname.bib}
@@ -83,7 +87,7 @@
 \title[CodeSeoul] % (optional, only for long titles)
   {Dimensionality reduction techniques}
 
-\author[AI Research Paper Review] % (optional, for multiple authors)
+\author[Machine Learning Afternoons] % (optional, for multiple authors)
   {Sanzhar Askaruly (San)}
 
 \institute[] % (optional)
@@ -91,7 +95,7 @@
     Ph.D. Candidate in Biomedical Engineering}
 
 \date[December 10]
-{CodeSeoul ML Meetup \\December 10, 2022}
+{CodeSeoul MLA \\December 10, 2022}
 
 % some change
 \begin{document}
@@ -99,11 +103,6 @@
     \begin{frame}
     \titlepage % Print the title page as the first slide
     \end{frame}
-
-    % \begin{frame}
-    % \frametitle{Overview} % Table of contents slide, comment this block out to remove it
-    % \tableofcontents 
-    % \end{frame}
 
     \begin{frame}{Overview}
       What we'll cover today:
@@ -117,242 +116,315 @@
         \end{itemize}
     \end{frame}
 
-    \begin{frame}[fragile]
-        \frametitle{What is gradient descent optimization?}
-        
-        \begin{tikzpicture}
-            \pgfplotstableread[col sep=comma,header=false]{
-                5.1,3.5,1.4,.2,Setosa
-                4.9,3,1.4,.2,Setosa
-                4.7,3.2,1.3,.2,Setosa
-                4.6,3.1,1.5,.2,Setosa
-                5,3.6,1.4,.2,Setosa
-                5.4,3.9,1.7,.4,Setosa
-                4.6,3.4,1.4,.3,Setosa
-                5,3.4,1.5,.2,Setosa
-                4.4,2.9,1.4,.2,Setosa
-                4.9,3.1,1.5,.1,Setosa
-                5.4,3.7,1.5,.2,Setosa
-                4.8,3.4,1.6,.2,Setosa
-                4.8,3,1.4,.1,Setosa
-                4.3,3,1.1,.1,Setosa
-                5.8,4,1.2,.2,Setosa
-                5.7,4.4,1.5,.4,Setosa
-                5.4,3.9,1.3,.4,Setosa
-                5.1,3.5,1.4,.3,Setosa
-                5.7,3.8,1.7,.3,Setosa
-                5.1,3.8,1.5,.3,Setosa
-                5.4,3.4,1.7,.2,Setosa
-                5.1,3.7,1.5,.4,Setosa
-                4.6,3.6,1,.2,Setosa
-                5.1,3.3,1.7,.5,Setosa
-                4.8,3.4,1.9,.2,Setosa
-                5,3,1.6,.2,Setosa
-                5,3.4,1.6,.4,Setosa
-                5.2,3.5,1.5,.2,Setosa
-                5.2,3.4,1.4,.2,Setosa
-                4.7,3.2,1.6,.2,Setosa
-                4.8,3.1,1.6,.2,Setosa
-                5.4,3.4,1.5,.4,Setosa
-                5.2,4.1,1.5,.1,Setosa
-                5.5,4.2,1.4,.2,Setosa
-                4.9,3.1,1.5,.2,Setosa
-                5,3.2,1.2,.2,Setosa
-                5.5,3.5,1.3,.2,Setosa
-                4.9,3.6,1.4,.1,Setosa
-                4.4,3,1.3,.2,Setosa
-                5.1,3.4,1.5,.2,Setosa
-                5,3.5,1.3,.3,Setosa
-                4.5,2.3,1.3,.3,Setosa
-                4.4,3.2,1.3,.2,Setosa
-                5,3.5,1.6,.6,Setosa
-                5.1,3.8,1.9,.4,Setosa
-                4.8,3,1.4,.3,Setosa
-                5.1,3.8,1.6,.2,Setosa
-                4.6,3.2,1.4,.2,Setosa
-                5.3,3.7,1.5,.2,Setosa
-                5,3.3,1.4,.2,Setosa
-                7,3.2,4.7,1.4,Versicolor
-                6.4,3.2,4.5,1.5,Versicolor
-                6.9,3.1,4.9,1.5,Versicolor
-                5.5,2.3,4,1.3,Versicolor
-                6.5,2.8,4.6,1.5,Versicolor
-                5.7,2.8,4.5,1.3,Versicolor
-                6.3,3.3,4.7,1.6,Versicolor
-                4.9,2.4,3.3,1,Versicolor
-                6.6,2.9,4.6,1.3,Versicolor
-                5.2,2.7,3.9,1.4,Versicolor
-                5,2,3.5,1,Versicolor
-                5.9,3,4.2,1.5,Versicolor
-                6,2.2,4,1,Versicolor
-                6.1,2.9,4.7,1.4,Versicolor
-                5.6,2.9,3.6,1.3,Versicolor
-                6.7,3.1,4.4,1.4,Versicolor
-                5.6,3,4.5,1.5,Versicolor
-                5.8,2.7,4.1,1,Versicolor
-                6.2,2.2,4.5,1.5,Versicolor
-                5.6,2.5,3.9,1.1,Versicolor
-                5.9,3.2,4.8,1.8,Versicolor
-                6.1,2.8,4,1.3,Versicolor
-                6.3,2.5,4.9,1.5,Versicolor
-                6.1,2.8,4.7,1.2,Versicolor
-                6.4,2.9,4.3,1.3,Versicolor
-                6.6,3,4.4,1.4,Versicolor
-                6.8,2.8,4.8,1.4,Versicolor
-                6.7,3,5,1.7,Versicolor
-                6,2.9,4.5,1.5,Versicolor
-                5.7,2.6,3.5,1,Versicolor
-                5.5,2.4,3.8,1.1,Versicolor
-                5.5,2.4,3.7,1,Versicolor
-                5.8,2.7,3.9,1.2,Versicolor
-                6,2.7,5.1,1.6,Versicolor
-                5.4,3,4.5,1.5,Versicolor
-                6,3.4,4.5,1.6,Versicolor
-                6.7,3.1,4.7,1.5,Versicolor
-                6.3,2.3,4.4,1.3,Versicolor
-                5.6,3,4.1,1.3,Versicolor
-                5.5,2.5,4,1.3,Versicolor
-                5.5,2.6,4.4,1.2,Versicolor
-                6.1,3,4.6,1.4,Versicolor
-                5.8,2.6,4,1.2,Versicolor
-                5,2.3,3.3,1,Versicolor
-                5.6,2.7,4.2,1.3,Versicolor
-                5.7,3,4.2,1.2,Versicolor
-                5.7,2.9,4.2,1.3,Versicolor
-                6.2,2.9,4.3,1.3,Versicolor
-                5.1,2.5,3,1.1,Versicolor
-                5.7,2.8,4.1,1.3,Versicolor
-                6.3,3.3,6,2.5,Virginica
-                5.8,2.7,5.1,1.9,Virginica
-                7.1,3,5.9,2.1,Virginica
-                6.3,2.9,5.6,1.8,Virginica
-                6.5,3,5.8,2.2,Virginica
-                7.6,3,6.6,2.1,Virginica
-                4.9,2.5,4.5,1.7,Virginica
-                7.3,2.9,6.3,1.8,Virginica
-                6.7,2.5,5.8,1.8,Virginica
-                7.2,3.6,6.1,2.5,Virginica
-                6.5,3.2,5.1,2,Virginica
-                6.4,2.7,5.3,1.9,Virginica
-                6.8,3,5.5,2.1,Virginica
-                5.7,2.5,5,2,Virginica
-                5.8,2.8,5.1,2.4,Virginica
-                6.4,3.2,5.3,2.3,Virginica
-                6.5,3,5.5,1.8,Virginica
-                7.7,3.8,6.7,2.2,Virginica
-                7.7,2.6,6.9,2.3,Virginica
-                6,2.2,5,1.5,Virginica
-                6.9,3.2,5.7,2.3,Virginica
-                5.6,2.8,4.9,2,Virginica
-                7.7,2.8,6.7,2,Virginica
-                6.3,2.7,4.9,1.8,Virginica
-                6.7,3.3,5.7,2.1,Virginica
-                7.2,3.2,6,1.8,Virginica
-                6.2,2.8,4.8,1.8,Virginica
-                6.1,3,4.9,1.8,Virginica
-                6.4,2.8,5.6,2.1,Virginica
-                7.2,3,5.8,1.6,Virginica
-                7.4,2.8,6.1,1.9,Virginica
-                7.9,3.8,6.4,2,Virginica
-                6.4,2.8,5.6,2.2,Virginica
-                6.3,2.8,5.1,1.5,Virginica
-                6.1,2.6,5.6,1.4,Virginica
-                7.7,3,6.1,2.3,Virginica
-                6.3,3.4,5.6,2.4,Virginica
-                6.4,3.1,5.5,1.8,Virginica
-                6,3,4.8,1.8,Virginica
-                6.9,3.1,5.4,2.1,Virginica
-                6.7,3.1,5.6,2.4,Virginica
-                6.9,3.1,5.1,2.3,Virginica
-                5.8,2.7,5.1,1.9,Virginica
-                6.8,3.2,5.9,2.3,Virginica
-                6.7,3.3,5.7,2.5,Virginica
-                6.7,3,5.2,2.3,Virginica
-                6.3,2.5,5,1.9,Virginica
-                6.5,3,5.2,2,Virginica
-                6.2,3.4,5.4,2.3,Virginica
-                5.9,3,5.1,1.8,Virginica
-            }\mydata          
-            \begin{axis}[width=7cm,height=7cm]
-            \addplot+[scatter, only marks, scatter/classes={
-                Setosa={mark=square*,blue},
-                Versicolor={mark=triangle*,red},
-                Virginica={mark=o,green}}, scatter src=explicit symbolic] table[col sep=comma, header=false, x index=0, y index=1, meta index=4] {iris.csv};
-            \legend{Setosa,Versicolor,Virginica},
-            \end{axis}
-            
-            \end{tikzpicture}
-        
-        % \addplot+[scatter, only marks, scatter/classes={Setosa={fill=red!80},
-        % Versicolor={fill=green!80},
-        % Virginica={fill=blue!80}}, scatter src=explicit symbolic] table[x index=0, y index=1, meta index=4] \mydata;
-
-
-
-        % \begin{tikzpicture}
-        %     \begin{axis}[xlabel={Length},ylabel={Width}, scatter/classes={Setosa={mark=o,draw=blue},Versicolor={mark=o,draw=red},Virginica={mark=o,draw=green}}]
-        %         % Graph column 2 versus column 0
-        %         %\addplot [only marks, scatter] table[meta index=4, x index=0,y index=2,col sep=comma] {iris.csv};
-        %         \addplot [only marks, scatter] table[x sepal.length, y sepal.width, col sep=comma] {iris.csv};
-        %         %\addplot [only marks, scatter, mark options={fill=blue}] table[meta index=4, x index=0,y index=2,col sep=comma] {iris.csv};
-        %         %\addlegendentry{Sepal}% y index+1 since humans count from 1
-                
-        %         % Graph column 1 versus column 0    
-        %         %\addplot [only marks, scatter,  mark options={fill=red}] table[meta index=4, x index=1,y index=3,col sep=comma] {iris.csv};
-        %         %\addlegendentry{Petal}
-        %     \end{axis}
-        % \end{tikzpicture}
-    \end{frame}
-
-
-    % \begin{axis}[
-    %     scatter/classes={a={mark=o,draw=black}},
-    %     xlabel = $sepal.length$,
-    %     ylabel = $sepal.width$,
-    %     title = {A Scatter Plot Example},]
-    %     \addplot [only marks, scatter] table {iris.csv};
-    % \end{axis}
-
-            % \begin{tikzpicture}
-        %     \begin{axis}[scatter/classes={a={mark=o,draw=black}}]
-        %         \addplot scatter[x index=0, y index=1, col sep=comma] table {iris.csv};
-        %     \end{axis}
-        % \end{tikzpicture}
-
-     % Graph column 1 versus column 0    
-            %\addplot scatter[x index=0,y index=1,col sep=comma] {iris.csv};
-
-
-    %\begin{axis}[xlabel={$x$},ylabel={Column Data}]
-
-    % Graph column 2 versus column 0
-    %\addplot scatter[x index=0,y index=1,col sep=comma] {iris.csv};
-    %\addlegendentry{Sepal}% y index+1 since humans count from 1
-    
-    %\addplot[scatter,only marks] table [x=sepal.length, y=sepal.width, col sep=comma] {iris.csv};
-
-    % \begin{frame}[fragile]
-    %     \frametitle{What is gradient descent optimization?}
-    %     \tikz \datavisualization
-    %     [visualize as scatter,
-    %     style sheet=cross marks]
-    %         data [format=table, read from file=iris.csv];
-    % \end{frame}
-
-    % data [format=named] {
-    %     x=0,       y={1,2,3},        set=a
-    %     x={2,3,4}, y={3,4,5,7},      set=b
-    %     x=6,       y={5,7,...,15},   set=c
-    % };
-    \section{Algorithms} %
-
-    \subsection{SGD (Stochastic gradient descent)}
+    \section{Background mathematics}
     \begin{frame}
+        \frametitle{Population vs sample}
+        \begin{center}
+            \includegraphics[width=0.9\textwidth]{/home/suzy/gitrepos/tuttelikz/machine-learning/221210-pca/images/sample_vs_population.png}
+        \end{center}
+    \end{frame}
+
+    \subsection{Sample mean}
+    \begin{frame}
+        \frametitle{Population vs sample}
+        \begin{columns}
+            \begin{column}{0.4\textwidth}  %%<--- here
+                \begin{center}
+                    \begin{block}{Population mean}
+                        
+                        \begin{equation}    % <--- deleted empty lines
+                            \mu = \frac{\sum_{i=1}^N x_i}{N}
+                        \end{equation}
+
+                        $N$ is number of items in the population
+                    \end{block}
+                \end{center}
+            \end{column}
+            \begin{column}{0.4\textwidth}  %%<--- here
+                \begin{center}
+                    \begin{block}{Sample mean}
+                        
+                        \begin{equation}    % <--- deleted empty lines
+                            \bar{{X}} = \frac{\sum_{i=1}^n x_i}{n}
+                        \end{equation}
+                        $n$ is number of items in the sample
+                    \end{block}
+                \end{center}
+            \end{column}
+        \end{columns}
+    \end{frame}    
+    
+    \subsection{Standard deviation}
+    \begin{frame}[fragile]
+        \frametitle{Standard deviation}
+        Let's take a look on two samples:\\~\\
+        \begin{center}$A = \left[ 10\: 20\: 40\: 70 \right]$\end{center}
+        \begin{center}
+            
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin=0, xmax=80,
+                    axis x line=bottom,% only show the bottom x axis
+                    hide y axis,    
+                    ymin=0,ymax=1,
+                    scatter/classes={%
+                        a={mark=o,draw=black}}
+                    ]
+                
+                \addplot[scatter,only marks,
+                    mark size = 3pt,
+                    fill = red,
+                    scatter src=explicit symbolic]
+                table {
+                    10 0 
+                    20 0 
+                    40 0 
+                    70 0 
+                };
+                \addplot[scatter,only marks,
+                    mark size = 5pt,
+                    mark=o,red,
+                    scatter src=explicit symbolic]
+                table {
+                    35 0 
+                };
+                \end{axis}
+                
+            \end{tikzpicture}
+        \end{center}
+        
+        \begin{center}$B = \left[ 30\: 33\: 37\: 40 \right]$\end{center}
+        \begin{center}
+            
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin=0, xmax=80,
+                    axis x line=bottom,% only show the bottom x axis
+                    hide y axis,    
+                    ymin=0,ymax=1,
+                    scatter/classes={%
+                        a={mark=o,draw=black}}
+                    ]
+                
+                \addplot[scatter,only marks,
+                    mark size = 3pt,
+                    fill = blue,
+                    scatter src=explicit symbolic]
+                table {
+                    30 0 
+                    33 0 
+                    37 0 
+                    40 0 
+                };
+                \addplot[scatter,only marks,
+                    mark size = 5pt,
+                    mark=o,blue,
+                    scatter src=explicit symbolic]
+                table {
+                    35 0 
+                };
+                \end{axis}
+                
+            \end{tikzpicture}
+        \end{center}
+        Here, $\bar{{A}} = \bar{{B}} = 35$. Unfortunately, mean doesn't tell us a lot except for a middle point.
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Standard deviation}
+        For our two sets, $A = \left[ 10\: 20\: 40\: 70 \right]$ and $B = \left[ 30\: 33\: 37\: 40 \right]$, we would be more interested in the \emph{spread} of the data.
+        \bigskip
+        So, how do we calculate it?
+        \begin{center}    
+            \begin{block}{Standard deviation}
+                \begin{equation}    % <--- deleted empty lines
+                    s = \sqrt{\frac{\sum_{i=1}^n (X_i - \bar{X})^2}{(n-1)}}
+                \end{equation}
+                In plain English, it is the "average distance from the mean of the data set to a point."
+            \end{block}
+        \end{center}
+        
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Standard deviation}
+        Set 1: $A = \left[ 10\: 20\: 40\: 70 \right]$, and $\bar{A}=35$
+        \begin{center}
+            
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin=0, xmax=80,
+                    axis x line=bottom,% only show the bottom x axis
+                    hide y axis,    
+                    ymin=0,ymax=1,
+                    scatter/classes={%
+                        a={mark=o,draw=black}}
+                    ]
+                
+                \addplot[scatter,only marks,
+                    mark size = 3pt,
+                    fill = red,
+                    scatter src=explicit symbolic]
+                table {
+                    10 0 
+                    20 0 
+                    40 0 
+                    70 0 
+                };
+                \addplot[scatter,only marks,
+                    mark size = 5pt,
+                    mark=o,red,
+                    scatter src=explicit symbolic]
+                table {
+                    35 0 
+                };
+                \end{axis}
+                
+            \end{tikzpicture}
+        \end{center}
+        Let's calculate standard deviation:
+        \begin{center}
+            \begin{tabular}{lrr}
+                \firsthline
+                $A$    & $(A-\bar{A})$ & $(A-\bar{A})^2$ \\
+                \hline
+                10      & -25    & 625      \\
+                20        & -15        & 225       \\
+                40       & 5     & 25      \\
+                70       & 35     & 1,225      \\
+                Total       &      &  2,100     \\
+                Divided by (n-1)       &      & 700   \\
+                Square root       &      & \textbf{26.4575}   \\
+                \lasthline
+                \end{tabular}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Standard deviation}
+        Set 2: $B = \left[ 30\: 33\: 37\: 40 \right]$, and $\bar{B}=35$
+        \begin{center}
+            
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin=0, xmax=80,
+                    axis x line=bottom,% only show the bottom x axis
+                    hide y axis,    
+                    ymin=0,ymax=1,
+                    scatter/classes={%
+                        a={mark=o,draw=black}}
+                    ]
+                
+                \addplot[scatter,only marks,
+                    mark size = 3pt,
+                    fill = blue,
+                    scatter src=explicit symbolic]
+                table {
+                    30 0 
+                    33 0 
+                    37 0 
+                    40 0 
+                };
+                \addplot[scatter,only marks,
+                    mark size = 5pt,
+                    mark=o,blue,
+                    scatter src=explicit symbolic]
+                table {
+                    35 0 
+                };
+                \end{axis}
+                
+            \end{tikzpicture}
+        \end{center}
+        Let's calculate standard deviation:
+        \begin{center}
+            \begin{tabular}{lrr}
+                \firsthline
+                $B$    & $(B-\bar{B})$ & $(B-\bar{B})^2$ \\
+                \hline
+                30      & -5    & 25      \\
+                33        & -2        & 4       \\
+                37       & 2     & 4      \\
+                40       & 5     & 25      \\
+                Total       &      & 58      \\
+                Divided by (n-1)       &      & 19.333   \\
+                Square root       &      & \textbf{4.397}   \\
+                \lasthline
+                \end{tabular}
+        \end{center}
+    \end{frame}
+
+    \subsection{Variance}
+    \begin{frame}
+        \frametitle{Variance}
+        Similar to standard deviation
+        \bigskip
+        So, how do we calculate it?
+        \begin{center}    
+            \begin{block}{Standard deviation}
+                \begin{equation}    % <--- deleted empty lines
+                    s = \sqrt{\frac{\sum_{i=1}^n (X_i - \bar{X})^2}{(n-1)}}
+                \end{equation}
+                In plain English, it is the "average distance from the mean of the data set to a point."
+            \end{block}
+        \end{center}
         
     \end{frame}
 
 
-    \subsection{SGD with Momentum}
+    \section{Examples}
+    \subsection{Iris dataset}
+    \begin{frame}
+        \frametitle{Iris flower dataset}
+        \begin{center}
+        \includegraphics[width=0.9\textwidth]{/home/suzy/gitrepos/tuttelikz/machine-learning/221210-pca/images/iris.png}
+        \end{center}
+    \end{frame}
+
+    
+    \begin{frame}[fragile]
+        \frametitle{Iris flower dataset}
+        \begin{center}
+        \begin{tikzpicture}[scale=0.8]
+            \begin{axis}[width=6cm,height=6cm, xlabel = {Sepal length}, ylabel = {Sepal width}]
+                \addplot+[scatter, only marks, scatter/classes={
+                    Setosa={mark=square,red},
+                    Versicolor={mark=triangle,green},
+                    Virginica={mark=o,blue}}, scatter src=explicit symbolic] table[col sep=comma, header=true, x index=0, y index=1, meta index=4] {iris.csv};
+                \legend{Setosa,Versicolor,Virginica},
+            \end{axis}
+        \end{tikzpicture}
+        \hspace{1cm}
+        \begin{tikzpicture}[scale=0.8]
+            \begin{axis}[width=6cm,height=6cm, xlabel = {Petal length}, ylabel = {Petal width}]
+                \addplot+[scatter, only marks, scatter/classes={
+                    Setosa={mark=square,red},
+                    Versicolor={mark=triangle,green},
+                    Virginica={mark=o,blue}}, scatter src=explicit symbolic] table[col sep=comma, header=true, x index=2, y index=3, meta index=4] {iris.csv};
+                \legend{Setosa,Versicolor,Virginica},
+            \end{axis}
+        \end{tikzpicture}
+        \end{center}
+        
+    \end{frame}
+
+    
+
+    \begin{frame}
+        \begin{center}
+        \frametitle{Iris flower dataset}
+        \includegraphics[width=0.7\textwidth]{/home/suzy/gitrepos/tuttelikz/machine-learning/221210-pca/images/pairplot_iris.png}
+        \end{center}
+    \end{frame}
+
+    
+    %mark=o,greenmark options={fill=red}
+
+    
+    \begin{frame}        
+    \end{frame}
+
     \begin{frame}
     \end{frame}
 
@@ -364,7 +436,6 @@
     \end{frame}
 
 
-    \subsection{AS}
     \begin{frame}
       \frametitle{Adagrad}
     \end{frame}
