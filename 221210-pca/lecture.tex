@@ -8,7 +8,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-
+\usepackage{mathtools}
 \usepackage{caption}
 \usepackage{hyperref}
 \usepackage{booktabs}
@@ -105,7 +105,6 @@
     \end{frame}
 
     \begin{frame}{Overview}
-      What we'll cover today:
       \tableofcontents
     \end{frame}
     
@@ -117,6 +116,7 @@
     \end{frame}
 
     \section{Background mathematics}
+    \subsection{Population vs sample}
     \begin{frame}
         \frametitle{Population vs sample}
         \begin{center}
@@ -124,7 +124,7 @@
         \end{center}
     \end{frame}
 
-    \subsection{Sample mean}
+    \subsection{Mean, standard deviation, variance}
     \begin{frame}
         \frametitle{Population vs sample}
         \begin{columns}
@@ -154,7 +154,6 @@
         \end{columns}
     \end{frame}    
     
-    \subsection{Standard deviation}
     \begin{frame}[fragile]
         \frametitle{Standard deviation}
         Let's take a look on two samples:\\~\\
@@ -355,33 +354,172 @@
         \end{center}
     \end{frame}
 
-    \subsection{Variance}
     \begin{frame}
         \frametitle{Variance}
         Similar to standard deviation
         \bigskip
         So, how do we calculate it?
         \begin{center}    
-            \begin{block}{Standard deviation}
+            \begin{block}{Variance}
                 \begin{equation}    % <--- deleted empty lines
-                    s = \sqrt{\frac{\sum_{i=1}^n (X_i - \bar{X})^2}{(n-1)}}
+                    s^2 = \frac{\sum_{i=1}^n (X_i - \bar{X})^2}{(n-1)}
                 \end{equation}
-                In plain English, it is the "average distance from the mean of the data set to a point."
+                Almost identical to the standard deviation (there is no square root in the formula).
             \end{block}
         \end{center}
+    \end{frame}
+
+    \subsection{Covariance, covariance matrix}
+    \begin{frame}
+        \frametitle{Covariance}
+        Previous measures are 1-dimensional. How do we check relationship between the dimensions?
+        \begin{center}    
+            \begin{block}{Covariance}
+                \textbf{Variance}
+                \begin{equation}    % <--- deleted empty lines
+                    var(X) = \frac{\sum_{i=1}^n (X_i - \bar{X})(X_i - \bar{X})}{(n-1)}
+                \end{equation}
+                \textbf{Covariance}
+                \begin{equation}    % <--- deleted empty lines
+                    covar(X,Y) = \frac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{(n-1)}
+                \end{equation}
+                How much dimensions vary from the mean \textit{with respect to each other}.
+            \end{block}
+        \end{center}
+        \begin{itemize}
+          \item Covariance between one dimension and itself gives variance.
+        \end{itemize}
         
     \end{frame}
 
+    \begin{frame}
+        \frametitle{Covariance}
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{/home/suzy/gitrepos/tuttelikz/machine-learning/221210-pca/images/covariance_types.png}
+        \end{center}
+    \end{frame}
 
-    \section{Examples}
-    \subsection{Iris dataset}
+    \begin{frame}
+            \frametitle{Covariance}
+            \underline{Exercise}: Find covariance between 2-dimensional dataset
+            \begin{center}
+                \begin{tabular}{ |c|c|c|c|c|c|c| } 
+                \hline
+                Item number: & 1 & 2 & 3 & 4 & 5 \\
+                \hline
+                x & 10  & 39 & 19 & 23 & 28 \\ 
+                y & 43  & 13 & 32 & 21 & 20 \\ 
+                \hline
+                \end{tabular}
+            \end{center} 
+            \textbf{Ans: } -120.55
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Covariance matrix}
+        When we have more than two dimensions, covariances between individual dimensions could be described in covariance matrix\\
+        
+        \begin{center}    
+            \begin{block}{Covariance matrix}
+                \begin{equation}
+                C^{n\times n} = (c_{i,j}: c_{i,j}=cov(Dim_{i}, Dim_{j}))
+                \end{equation}
+                where $C^{m\times n}$ is a matrix with $n$ rows and $m$ columns. Example for three dimensions:
+                \begin{equation}    % <--- deleted empty lines
+                    c = \begin{pmatrix}
+                            cov(x,x) & cov(x,y) & cov(x,z)\\
+                            cov(y,x) & cov(y,y) & cov(y,z)\\
+                            cov(z,x) & cov(z,y) & cov(z,z)
+                        \end{pmatrix}
+                \end{equation}
+                Since $cov(a,b) = cov(b,a)$, the matrix is symmetrical about the main diagonal. 
+            \end{block}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Covariance matrix}        
+        \underline{Exercise}:  Find covariance matrix for the 3-dimensional dataset
+        \begin{center}
+            \begin{tabular}{ |c|c|c|c|c| } 
+            \hline
+            Item number: & 1 & 2 & 3 \\
+            \hline
+            x & 1  & -1 & 4 \\ 
+            y & 2  & 1 & 3 \\ 
+            z & 1  & 3 & -1 \\ 
+            \hline
+            \end{tabular}
+        \end{center}
+        \textbf{Ans: } $\begin{pmatrix}
+            4.222 & 1.667 & -3.333 \\
+            1.667 & 0.667 & -1.333 \\
+            -3.333 & -1.333 & 2.667
+        \end{pmatrix}$
+\end{frame}
+
+
+    \subsection{Eigenvectors, eigenvalues}
+    \begin{frame}
+        \frametitle{Eigenvectors}
+        \begin{center}
+            \includegraphics[width=0.7\textwidth]{/home/suzy/gitrepos/tuttelikz/machine-learning/221210-pca/images/eigenvectors.png}
+        \end{center}
+        %\vspace{0.5cm}
+        \begin{itemize}
+          \item Eigenvectors (red) do not change direction when a linear transformation (e.g. scaling) is applied to them. Other vectors (yellow) do.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Eigenvectors}
+        An example of non-eigenvector:
+        \begin{equation}    % <--- deleted empty lines
+            \colorlet{oldcolor}{black}
+            \begin{pmatrix} 2 & 3 \\ 2 & 1 \end{pmatrix} \times \color{red} \boxed{\color{oldcolor} \begin{pmatrix} 1 \\ 3 \end{pmatrix} } \color{oldcolor} = \begin{pmatrix} 11 \\ 5 \end{pmatrix}
+        \end{equation}
+
+        An example of eigenvector:
+        \begin{equation}    % <--- deleted empty lines
+            \colorlet{oldcolor}{black}
+            \begin{pmatrix} 2 & 3 \\ 2 & 1 \end{pmatrix} \times \color{blue} \boxed{\color{oldcolor} \begin{pmatrix} 3 \\ 2 \end{pmatrix} } \color{oldcolor} = \begin{pmatrix} 12 \\ 8 \end{pmatrix} = 4 \times \begin{pmatrix} 3 \\ 2 \end{pmatrix}
+        \end{equation}
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Eigenvalues}
+        The amount by which the original vector was scaled after multiplication by the square matrix
+        \begin{equation}    % <--- deleted empty lines
+            \colorlet{oldcolor}{black}
+            \begin{pmatrix} 2 & 3 \\ 2 & 1 \end{pmatrix} \times   \begin{pmatrix} 3 \\ 2 \end{pmatrix} = \begin{pmatrix} 12 \\ 8 \end{pmatrix} = \color{blue} \boxed{\color{oldcolor} 4} \color{oldcolor} \times \begin{pmatrix} 3 \\ 2 \end{pmatrix}
+        \end{equation}
+    \end{frame}
+
+    \section{Dimensionality reduction techniques}
+    \subsection{PCA (Principal component analysis)}
+    \begin{frame}
+        \frametitle{PCA}
+        \begin{center}
+        \end{center}
+    \end{frame}
+
+    \subsection{SNE (Stochastic neighbor embedding)}
+    \begin{frame}
+        \frametitle{Iris flower dataset}
+        \begin{center}
+        \end{center}
+    \end{frame}
+
+    
+    \section{Visualizations}
+    \subsection{IRIS dataset}
     \begin{frame}
         \frametitle{Iris flower dataset}
         \begin{center}
         \includegraphics[width=0.9\textwidth]{/home/suzy/gitrepos/tuttelikz/machine-learning/221210-pca/images/iris.png}
         \end{center}
     \end{frame}
-
     
     \begin{frame}[fragile]
         \frametitle{Iris flower dataset}
@@ -409,8 +547,6 @@
         
     \end{frame}
 
-    
-
     \begin{frame}
         \begin{center}
         \frametitle{Iris flower dataset}
@@ -421,7 +557,7 @@
     
     %mark=o,greenmark options={fill=red}
 
-    
+    \subsection{MNIST dataset}
     \begin{frame}        
     \end{frame}
 
@@ -440,12 +576,6 @@
       \frametitle{Adagrad}
     \end{frame}
 
-
-    
-    \section{Experiments} %
-    \begin{frame}{Experiment}
-    \end{frame}
-    
 
     \nocite{*}
     \begin{frame}{Experiment}
