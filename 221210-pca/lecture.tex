@@ -19,40 +19,40 @@
 \pgfplotsset{compat=1.16}
 \usepackage[USenglish,british,american,australian,english]{babel}
 \begin{filecontents}{\jobname.bib}
-@article{qian1999momentum,
-  title={On the momentum term in gradient descent learning algorithms},
-  author={Qian, Ning},
-  journal={Neural networks},
-  volume={12},
-  number={1},
-  pages={145--151},
-  year={1999},
-  publisher={Elsevier}
-}
+% @article{qian1999momentum,
+%   title={On the momentum term in gradient descent learning algorithms},
+%   author={Qian, Ning},
+%   journal={Neural networks},
+%   volume={12},
+%   number={1},
+%   pages={145--151},
+%   year={1999},
+%   publisher={Elsevier}
+% }
 
-@article{duchi2011adaptive,
-  title={Adaptive subgradient methods for online learning and stochastic optimization.},
-  author={Duchi, John and Hazan, Elad and Singer, Yoram},
-  journal={Journal of machine learning research},
-  volume={12},
-  number={7},
-  year={2011}
-}
+% @article{duchi2011adaptive,
+%   title={Adaptive subgradient methods for online learning and stochastic optimization.},
+%   author={Duchi, John and Hazan, Elad and Singer, Yoram},
+%   journal={Journal of machine learning research},
+%   volume={12},
+%   number={7},
+%   year={2011}
+% }
 
-@article{ruder2016overview,
-  title={An overview of gradient descent optimization algorithms},
-  author={Ruder, Sebastian},
-  journal={arXiv preprint arXiv:1609.04747},
-  year={2016}
-}
+% @article{ruder2016overview,
+%   title={An overview of gradient descent optimization algorithms},
+%   author={Ruder, Sebastian},
+%   journal={arXiv preprint arXiv:1609.04747},
+%   year={2016}
+% }
 
-@software{Novik_torchoptimizers,
-    title        = {{torch-optimizer -- collection of optimization algorithms for PyTorch.}},
-    author       = {Novik, Mykola},
-    year         = 2020,
-    month        = 1,
-    version      = {1.0.1}
-}
+% @software{Novik_torchoptimizers,
+%     title        = {{torch-optimizer -- collection of optimization algorithms for PyTorch.}},
+%     author       = {Novik, Mykola},
+%     year         = 2020,
+%     month        = 1,
+%     version      = {1.0.1}
+% }
 
 \end{filecontents}
 \usepackage[style=numeric,backend=biber,autocite=plain,sorting=none]{biblatex}
@@ -66,7 +66,7 @@
 \usepackage{tikz}
 %\usepackage{etoolbox} % for \ifthen
 \usepackage{listofitems} % for \readlist to create arrays
-\usetikzlibrary{datavisualization, arrows.meta} % for arrow size
+\usetikzlibrary{datavisualization, arrows.meta, shapes, shadows, arrows} % for arrow size
 \usepackage[outline]{contour} % glow around text
 \contourlength{1.4pt}
 
@@ -82,10 +82,15 @@
 \setbeamertemplate{caption}[numbered]
 \AtBeginBibliography{\small}
 
+\tikzstyle{decision} = [diamond, draw, fill=white]
+\tikzstyle{line} = [draw, -stealth, thick]
+\tikzstyle{elli}=[draw, ellipse, fill=gray!20, minimum height=8mm, text width=5em, text centered]
+\tikzstyle{block} = [draw, rectangle, fill=white, text width=8em, text centered, minimum height=15mm, node distance=10em]
+
 %Includes "References" in the table of contents
 
 \title[CodeSeoul] % (optional, only for long titles)
-  {Dimensionality reduction techniques}
+  {Dimensionality reduction techniques: \\Part 1}
 
 \author[Machine Learning Afternoons] % (optional, for multiple authors)
   {Sanzhar Askaruly (San)}
@@ -110,8 +115,14 @@
     
     \section{Motivation} %
     \begin{frame}{Motivation}
+        \textbf{Why dimensionality reduction?}
+        \bigskip
+        \\ Important "toolkit" in machine learning:
         \begin{itemize}
-            \item Relationships between data
+            \item Preprocessing step for other algorithms (reduce size)
+            \item Visualization
+            \item Compression
+            \item Interpolation
         \end{itemize}
     \end{frame}
 
@@ -500,20 +511,24 @@
     \subsection{PCA (Principal component analysis)}
     \begin{frame}
         \frametitle{PCA}
-        \begin{center}
-        \end{center}
+        
+        \textbf{What is Principal Component Analysis?} \\
+        A way of identifying patterns in data: by highlighting their similarities and differences
+        
+        \bigskip
+        \textbf{Pros}
+        \begin{itemize}
+            \item Once patterns in the data, and you compress the data, ie. by reducing the number of dimensions, without much loss of information.
+        \end{itemize}
+
+        \textbf{Cons}
+        \begin{itemize}
+            \item Linear $\therefore$ difficult to unfold single ambiguous object really belongs in several disparate locations in the low-dimensional space.
+        \end{itemize}
     \end{frame}
 
-    \subsection{SNE (Stochastic neighbor embedding)}
-    \begin{frame}
-        \frametitle{Iris flower dataset}
-        \begin{center}
-        \end{center}
-    \end{frame}
 
-    
-    \section{Visualizations}
-    \subsection{IRIS dataset}
+    \subsubsection{Example with IRIS dataset}
     \begin{frame}
         \frametitle{Iris flower dataset}
         \begin{center}
@@ -554,39 +569,145 @@
         \end{center}
     \end{frame}
 
+    \begin{frame}[fragile]
+        \frametitle{Applying PCA to Iris flower dataset}
+        PCA automatically finds principal components (eg. \textit{axes}) in feature space. Here, we defined two, so we can visualize in 2D easily.
+        \begin{columns}
+            \begin{column}{0.5\textwidth}
+                \scriptsize
+                \begin{minted}[framesep=4mm, autogobble]{python}
+                from sklearn import datasets
+                from sklearn.decomposition import PCA
+
+                iris = datasets.load_iris()
+
+                X = iris.data
+                y = iris.target
+                target_names = iris.target_names
+
+                pca = PCA(n_components=2)
+                X_r = pca.fit(X).transform(X)
+                \end{minted}
+            \end{column}
+            \begin{column}{0.5\textwidth}  %%<--- here
+                \begin{center}
+                    \includegraphics[width=1.0\textwidth]{/home/suzy/gitrepos/tuttelikz/machine-learning/221210-pca/images/pca_iris.png}
+                 \end{center}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+    \subsubsection{PCA under the hood}
+    \begin{frame}
+        \begin{center}
+        \frametitle{PCA under the hood}
+        \resizebox{1.0\textwidth}{!}{
+            \begin{tikzpicture}
+                % Create Blocks
+                
+                \node [block] (step2) {2. Subtract the mean};
+                \node [block, left of=step2, xshift=-5em] (step1) {1. Get some data};
+                \node [block, right of=step2, xshift=5em] (step3) {3. Calculate the covariance matrix};
+
+                \node [block, below of=step3, yshift=-5em] (step4) {4. Calculate the eigenvectors and eigenvalues of the covariance matrix};
+                \node [block, below of=step2, yshift=-5em] (step5) {5. Choosing components and forming a feature vector};
+                \node [block, below of=step1, yshift=-5em] (step6) {6. Deriving the new data set};
+                
+                % Add Arrows
+                \path [line] (step1) -- (step2);
+                \path [line] (step2) -- (step3);
+                \path [line] (step3) -- (step4);
+                \path [line] (step4) -- (step5);
+                \path [line] (step5) -- (step6);
+            \end{tikzpicture}
+        }
+        \end{center}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{PCA under the hood}
+        \begin{center}
+        \scriptsize
+        \begin{minted}[framesep=4mm, autogobble]{python}
+        import numpy as np
+        from numpy.linalg import eig
+
+        def PCA_numpy(X,y):
+            def mean(x): # np.mean(X, axis = 0)  
+                return sum(x)/len(x)  
+
+            def std(x): # np.std(X, axis = 0)
+                return (sum((i - mean(x))**2 for i in x)/len(x))**0.5
+
+            def Standardize_data(X):
+                return (X - mean(X))/std(X)
+
+            def covariance(x): 
+                return (x.T @ x)/(x.shape[0]-1)
+
+            # Step 1: Standardize the data
+            X_std = Standardize_data(X)
+            # Step 2: Find the covariance matrix
+            cov_mat = covariance(X_std) # np.cov(X_std.T)
+
+            # Step 3: Find the eigenvectors and eigenvalues of the covariance matrix
+            eig_vals, eig_vecs = eig(cov_mat) 
+
+        \end{minted}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{PCA under the hood}
+        \begin{center}
+        \scriptsize
+        \begin{minted}[framesep=4mm, autogobble]{python}
+            max_abs_idx = np.argmax(np.abs(eig_vecs), axis=0)
+            signs = np.sign(eig_vecs[max_abs_idx, range(eig_vecs.shape[0])])
+            eig_vecs = eig_vecs*signs[np.newaxis,:]
+            eig_vecs = eig_vecs.T
+
+            # Step 4: Rearrange the eigenvectors and eigenvalues 
+            eig_pairs = [(np.abs(eig_vals[i]), eig_vecs[i,:]) for i in range(len(eig_vals))]
+
+            # Then, we sort the tuples from the highest to the lowest based on eigenvalues magnitude
+            eig_pairs.sort(key=lambda x: x[0], reverse=True)
+            eig_vals_sorted = np.array([x[0] for x in eig_pairs])
+            eig_vecs_sorted = np.array([x[1] for x in eig_pairs])
+            
+            # Step 5: Choose principal components
+            k = 2
+            W = eig_vecs_sorted[:k, :] # Projection matrix
+
+            # Step 6: Project the data
+            X_proj = X_std.dot(W.T)
+
+            return X_proj
+        \end{minted}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{PCA under the hood}
+        \begin{center}
+            \includegraphics[width=0.9\textwidth]{/home/suzy/gitrepos/tuttelikz/machine-learning/221210-pca/images/pca_scratch.png}
+        \end{center}
+    \end{frame}
+
+    \subsection{t-SNE (Stochastic neighbor embedding)}
+    \begin{frame}
+        \frametitle{t-SNE (Stochastic neighbor embedding)}
+        \begin{center}
+            To be continued
+        \end{center}
+    \end{frame}
+
+
+
     
     %mark=o,greenmark options={fill=red}
 
-    \subsection{MNIST dataset}
-    \begin{frame}        
-    \end{frame}
-
-    \begin{frame}
-    \end{frame}
-
-
-
-    \begin{frame}
-      \begin{center}
-      \end{center}
-    \end{frame}
-
-
-    \begin{frame}
-      \frametitle{Adagrad}
-    \end{frame}
-
-
     \nocite{*}
-    \begin{frame}{Experiment}
-    \end{frame}
-
-    \begin{frame}{Experiment}
-    \end{frame}
-
-    \begin{frame}{Experiment}
-    \end{frame}
-    
 
     \section{Summary} %
     \subsection{Conclusion}
@@ -601,20 +722,20 @@
       \begin{huge}Thank you for your attention!\end{huge}
       \end{center}
 
-        \vspace{0.5cm}
-        \begin{itemize}
-          \item Workshop contents: \\
-            \begin{small}\url{https://github.com/CodeSeoul/machine-learning/tree/master/221210-pca}
-            \end{small}
-          \item Follow-up QA? \\ 
-            \begin{small}\url{http://discord.com/users/tuttelikz}
-            \end{small}
-        \end{itemize}
+        % \vspace{0.5cm}
+        % \begin{itemize}
+        %   \item Workshop contents: \\
+        %     \begin{small}\url{https://github.com/CodeSeoul/machine-learning/tree/master/221210-pca}
+        %     \end{small}
+        %   \item Follow-up QA? \\ 
+        %     \begin{small}\url{http://discord.com/users/tuttelikz}
+        %     \end{small}
+        % \end{itemize}
 
     \end{frame}
 
     \begin{frame}{References}
-      \printbibliography  
+      %\printbibliography  
     \end{frame}
 
 \end{document}
