@@ -19,41 +19,18 @@
 \pgfplotsset{compat=1.16}
 \usepackage[USenglish,british,american,australian,english]{babel}
 \begin{filecontents}{\jobname.bib}
-% @article{qian1999momentum,
-%   title={On the momentum term in gradient descent learning algorithms},
-%   author={Qian, Ning},
-%   journal={Neural networks},
-%   volume={12},
-%   number={1},
-%   pages={145--151},
-%   year={1999},
-%   publisher={Elsevier}
-% }
+@article{smith2002tutorial,
+  title={A tutorial on principal components analysis},
+  author={Smith, Lindsay I},
+  year={2002}
+}
 
-% @article{duchi2011adaptive,
-%   title={Adaptive subgradient methods for online learning and stochastic optimization.},
-%   author={Duchi, John and Hazan, Elad and Singer, Yoram},
-%   journal={Journal of machine learning research},
-%   volume={12},
-%   number={7},
-%   year={2011}
-% }
-
-% @article{ruder2016overview,
-%   title={An overview of gradient descent optimization algorithms},
-%   author={Ruder, Sebastian},
-%   journal={arXiv preprint arXiv:1609.04747},
-%   year={2016}
-% }
-
-% @software{Novik_torchoptimizers,
-%     title        = {{torch-optimizer -- collection of optimization algorithms for PyTorch.}},
-%     author       = {Novik, Mykola},
-%     year         = 2020,
-%     month        = 1,
-%     version      = {1.0.1}
-% }
-
+@book{anton2013elementary,
+  title={Elementary linear algebra: applications version},
+  author={Anton, Howard and Rorres, Chris},
+  year={2013},
+  publisher={John Wiley \& Sons}
+}
 \end{filecontents}
 \usepackage[style=numeric,backend=biber,autocite=plain,sorting=none]{biblatex}
 \addbibresource{\jobname.bib}
@@ -467,6 +444,8 @@
             1.667 & 0.667 & -1.333 \\
             -3.333 & -1.333 & 2.667
         \end{pmatrix}$
+        \vspace{0.5cm}
+        More examples and linear algebra basics recommended here, ~\cite{anton2013elementary}.
 \end{frame}
 
 
@@ -513,7 +492,7 @@
         \frametitle{PCA}
         
         \textbf{What is Principal Component Analysis?} \\
-        A way of identifying patterns in data: by highlighting their similarities and differences
+        A way of identifying patterns in data: by highlighting their similarities and differences ~\cite{smith2002tutorial}:
         
         \bigskip
         \textbf{Pros}
@@ -662,27 +641,28 @@
         \begin{center}
         \scriptsize
         \begin{minted}[framesep=4mm, autogobble]{python}
-            max_abs_idx = np.argmax(np.abs(eig_vecs), axis=0)
-            signs = np.sign(eig_vecs[max_abs_idx, range(eig_vecs.shape[0])])
-            eig_vecs = eig_vecs*signs[np.newaxis,:]
-            eig_vecs = eig_vecs.T
+            def continued ...
+                max_abs_idx = np.argmax(np.abs(eig_vecs), axis=0)
+                signs = np.sign(eig_vecs[max_abs_idx, range(eig_vecs.shape[0])])
+                eig_vecs = eig_vecs*signs[np.newaxis,:]
+                eig_vecs = eig_vecs.T
 
-            # Step 4: Rearrange the eigenvectors and eigenvalues 
-            eig_pairs = [(np.abs(eig_vals[i]), eig_vecs[i,:]) for i in range(len(eig_vals))]
+                # Step 4: Rearrange the eigenvectors and eigenvalues 
+                eig_pairs = [(np.abs(eig_vals[i]), eig_vecs[i,:]) for i in range(len(eig_vals))]
 
-            # Then, we sort the tuples from the highest to the lowest based on eigenvalues magnitude
-            eig_pairs.sort(key=lambda x: x[0], reverse=True)
-            eig_vals_sorted = np.array([x[0] for x in eig_pairs])
-            eig_vecs_sorted = np.array([x[1] for x in eig_pairs])
-            
-            # Step 5: Choose principal components
-            k = 2
-            W = eig_vecs_sorted[:k, :] # Projection matrix
+                # Then, we sort the tuples from the highest to the lowest based on eigenvalues magnitude
+                eig_pairs.sort(key=lambda x: x[0], reverse=True)
+                eig_vals_sorted = np.array([x[0] for x in eig_pairs])
+                eig_vecs_sorted = np.array([x[1] for x in eig_pairs])
+                
+                # Step 5: Choose principal components
+                k = 2
+                W = eig_vecs_sorted[:k, :] # Projection matrix
 
-            # Step 6: Project the data
-            X_proj = X_std.dot(W.T)
+                # Step 6: Project the data
+                X_proj = X_std.dot(W.T)
 
-            return X_proj
+                return X_proj
         \end{minted}
         \end{center}
     \end{frame}
@@ -698,7 +678,7 @@
     \begin{frame}
         \frametitle{t-SNE (Stochastic neighbor embedding)}
         \begin{center}
-            To be continued
+            To be continued next time, \\ Dimensionality reduction techniques: Part 2
         \end{center}
     \end{frame}
 
@@ -709,33 +689,43 @@
 
     \nocite{*}
 
-    \section{Summary} %
-    \subsection{Conclusion}
-    \begin{frame}{Conclusion}
+    % \section{Summary} %
+    % \subsection{Conclusion}
+    % \begin{frame}{Conclusion}
 
-    \end{frame}
+    % \end{frame}
 
 
-    \subsection{Practicum}
-    \begin{frame}{Practicum}
+    \section{Further}
+    \subsection{Lecture contents}
+    \begin{frame}{}
       \begin{center}
       \begin{huge}Thank you for your attention!\end{huge}
       \end{center}
 
-        % \vspace{0.5cm}
-        % \begin{itemize}
-        %   \item Workshop contents: \\
-        %     \begin{small}\url{https://github.com/CodeSeoul/machine-learning/tree/master/221210-pca}
-        %     \end{small}
-        %   \item Follow-up QA? \\ 
-        %     \begin{small}\url{http://discord.com/users/tuttelikz}
-        %     \end{small}
-        % \end{itemize}
-
+        \vspace{0.2cm}
+        \begin{itemize}
+            \item Slides: \\
+            \begin{small}\url{https://github.com/CodeSeoul/machine-learning/blob/master/221210-pca/lecture.pdf}
+            \end{small}
+            \item Recorded video: \\
+            \begin{small}\url{https://www.youtube.com/watch?v=UfwQyWD0KRM}
+            \end{small}
+            \item Solutions for exercises: \\
+            \begin{small}\url{https://github.com/CodeSeoul/machine-learning/blob/master/221210-pca/excel_ex.xlsx}
+            \end{small}
+            \item PCA from scratch: \\
+            \begin{small}\url{https://github.com/CodeSeoul/machine-learning/blob/master/221210-pca/practicum.ipynb}
+            \end{small}
+            \item Follow-up QA? \\ 
+            \begin{small}\url{http://discord.com/users/tuttelikz}
+            \end{small}
+        \end{itemize}
     \end{frame}
 
+    \subsection{References}
     \begin{frame}{References}
-      %\printbibliography  
+      \printbibliography
     \end{frame}
 
 \end{document}
