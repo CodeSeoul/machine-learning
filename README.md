@@ -36,5 +36,8 @@ https://github.com/CodeSeoul/machine-learning/tree/master/221105-optimization
 - 221119: Vanilla GAN  
 https://github.com/CodeSeoul/machine-learning/tree/master/221119-gan
 
-- 221202: Classification with MNIST
+- 221202: Classification with MNIST  
 https://github.com/CodeSeoul/machine-learning/tree/master/221202-classification
+
+- 221210: Dimensionality reduction techniques: Part 1  
+https://github.com/CodeSeoul/machine-learning/blob/master/221210-pca
