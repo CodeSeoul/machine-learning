@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[all]{xy}
+%\usepackage{epsfig}
+%\usepackage{psfig}
+
+\newcommand{\handout}[5]{
+  \noindent
+  \begin{center}
+  \framebox{
+    \vbox{
+      \hbox to 5.78in { {\bf CodeSeoul MLA (Machine Learning Afternoons)} \hfill #2 }
+      \vspace{4mm}
+      \hbox to 5.78in { {\Large \hfill #5  \hfill} }
+      \vspace{2mm}
+      \hbox to 5.78in { {\em #3 \hfill } }
+    }
+  }
+  \end{center}
+  \vspace*{4mm}
+}
+
+\newcommand{\lecture}[4]{\handout{#1}{#2}{#3}{Scribe: #4}{Lecture #1}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{assumption}[theorem]{Assumption}
+
+% 1-inch margins, from fullpage.sty by H.Partl, Version 2, Dec. 15, 1988.
+\topmargin 0pt
+\advance \topmargin by -\headheight
+\advance \topmargin by -\headsep
+\textheight 8.9in
+\oddsidemargin 0pt
+\evensidemargin \oddsidemargin
+\marginparwidth 0.5in
+\textwidth 6.5in
+
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+
+\begin{document}
+
+\lecture{22-11-05: Optimization algorithms in deep learning}{}
+	{Lecturer: Sanzhar Askaruly}{}
+
+\section{Overview}
+
+In this lecture, we discuss hashing as a solution to dictionary/membership problem.
+Various results on hashing are presented with emphasis on static perfect hashing
+and Cuckoo hashing.
+
+\section{Dictionary/Membership Problem}
+
+H
+
+\section{Worst-case Guarantees in Static Hashing}
+asdf
+
+\section{Dynamic Hashing}
+as
+
+
+%\bibliography{mybib}
+\bibliographystyle{alpha}
+
+\begin{thebibliography}{77}
+
+\bibitem{dietz} M. Dietzfelbinger, F. Meyer auf der Heide, \emph{A New Universal Class of Hash Functions and Dynamic Hashing in Real Time},
+$17^\mathrm{th}$ ICALP, p. 6-19, 1990.
+
+\end{thebibliography}
+
+\end{document}
+
+
+
+The theorem implies that a good hash function is easy to be found. Let $H$ be
+the family of all hash functions, and $\ell$ be the expected length of the longest chain
+that a random hash function produces (which is implied by the theorem to be $O(1)$).
+If we pick a random hash function $h \in H$, then the probability that the longest
+chain produced by $h$ is longer than $2\ell$ is at most a half. That means that
+after approximately 2 trials, we are bound to find a hash function that gives us $O(1)$
+running time in every operation. 
+
+
+
+The property of weak universal hash family guarantees, as in the last
+section, that we can find a good hash function easily, making rehashing not too expensive.
