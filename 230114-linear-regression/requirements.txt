@@ -1,0 +1,5 @@
+# Often good to pin versions in real-world. A version up from a third-party vendor
+# can unexpectedly break your application
+numpy
+matplotlib
+pandas  # for loading and pre-processing data
