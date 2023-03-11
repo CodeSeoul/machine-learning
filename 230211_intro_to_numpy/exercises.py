@@ -1,3 +1,4 @@
+import typing as t
 import numpy as np
 
 
@@ -14,14 +15,15 @@ def element_wise_add(np_array: np.ndarray, second_numpy_array: np.ndarray) -> np
     E.g. A = np.array([1, 2]), B = np.array([3, 4])
          Output = A + B =  np.array([4, 6])
     """
-    pass
+    raise NotImplementedError
 
 
 def create_none_vector_of_size_10() -> np.ndarray:
     """
     Returns: A numpy array of size (10, ) with all values None
     """
-    pass
+    raise NotImplementedError
+
 
 def create_nd_array_with_values_1_to_n(n: int) -> np.ndarray:
     """
@@ -29,7 +31,7 @@ def create_nd_array_with_values_1_to_n(n: int) -> np.ndarray:
     [1, 2, 3, ... , n]
     Where n = the number of elements in an array
     """
-    pass
+    raise NotImplementedError
 
 
 def get_values_greater_than(numpy_array: np.ndarray, greater_than_threshold: int) -> np.ndarray:
@@ -48,7 +50,7 @@ def get_values_greater_than(numpy_array: np.ndarray, greater_than_threshold: int
         A = np.array([1, 2, 3, 4]), greater_than_threshold = 2
         output = np.array([3, 4])
     """
-    return numpy_array[numpy_array > greater_than_threshold]
+    raise NotImplementedError
 
 
 def min_max_norm_target_matrix(matrix: np.ndarray):
@@ -78,7 +80,7 @@ def min_max_norm_target_matrix(matrix: np.ndarray):
          ]
 
     """
-    pass
+    raise NotImplementedError
 
 
 def create_random_images(batch_size, channel, height, width) -> np.ndarray:
@@ -88,7 +90,7 @@ def create_random_images(batch_size, channel, height, width) -> np.ndarray:
     Returns:
         np.ndarray
     """
-    pass
+    raise NotImplementedError
 
 
 def transpose_bchw_to_bhwc() -> np.ndarray:
@@ -105,4 +107,43 @@ def transpose_bchw_to_bhwc() -> np.ndarray:
     # TODO: Transpose this image so that it is of shape
     # (batch_size, height, width, channel)
     # IMPORTANT: DO NOT USE reshape
-    pass
+    raise NotImplementedError
+
+
+def create_batch_of_ones_using_stack(batch_size: int,
+                                     shape_dim: t.Tuple[int, ...]) -> np.ndarray:
+    """
+    Given a batch_size and a shape dimension,
+    Args:
+        batch_size: The batch_size of the int
+        shape_dim: A tuple notating the shape of each batch of data
+
+    Returns:
+        A numpy array of ones with shape (batch_size, *shape_dim).
+
+        e.g. batch_size = 16, shape_dim = (3, 2, 2,)
+        then result should be of shape (16, 3, 2, 2)
+    """
+    results = []
+    for i in range(batch_size):
+        # TODO: update me
+        raise NotImplementedError
+    # modify results here into a numpy array using np.stack()
+    # Output shape should be of shape(batch_size, *shape_dim).
+    # e.g. batch_size = 16, shape_dim = (3, 2, 2,)
+    # then result should be of shape (16, 3, 2, 2)
+    return results
+
+
+def replace_2d_border_with_zeros(np_array: np.ndarray) -> None:
+    """
+    Given a numpy array of more than one axis, replace borders with zeros.
+    Important: do this without using a For / while loop.
+    Args:
+        np_array: A 2 dimensional array
+
+    Returns:
+        Nothing. The np_array must be modified IN-PLACE
+    """
+    assert len(np_array.shape) == 2, f'np_array must be 2-dimensional. Shape of np_array: {np_array.shape}'
+    raise NotImplementedError

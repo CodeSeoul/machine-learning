@@ -1,11 +1,20 @@
-import random
+import copy
 
 import numpy as np
 import pytest
+import sys
+import typing as t
 
-from intro_to_numpy.exercises import create_nd_array_with_values_1_to_n, create_none_vector_of_size_10, \
-    create_random_images, element_wise_add, get_values_greater_than, min_max_norm_target_matrix, transpose_bchw_to_bhwc
-from intro_to_numpy.tests.conftest import assert_is_numpy_array
+# Adds higher directory to python modules path.
+# Don't ever do this in production
+# and don't put numbers as module names
+sys.path.append('..')
+
+
+from exercises import create_nd_array_with_values_1_to_n, create_none_vector_of_size_10, \
+    create_random_images, element_wise_add, get_values_greater_than, min_max_norm_target_matrix, \
+    transpose_bchw_to_bhwc, create_batch_of_ones_using_stack, replace_2d_border_with_zeros
+from .conftest import assert_is_numpy_array
 
 
 @pytest.mark.parametrize('first_array, second_array', [
@@ -66,3 +75,36 @@ def test_transpose_bchw_to_bhwc():
     images = transpose_bchw_to_bhwc()
     assert_is_numpy_array(images)
     assert np.all(images.shape == (4, 32, 16, 3))
+
+
+@pytest.mark.parametrize('batch_size,shape_dim', [
+    pytest.param(16, (3, 5, 4, 2)),
+    pytest.param(16, (1,)),
+    pytest.param(16, (100, 99, 98))
+])
+def test_create_batch_of_ones_using_stack(batch_size: int, shape_dim: t.Tuple[int, ...]):
+    output = create_batch_of_ones_using_stack(batch_size, shape_dim)
+    actual_shape = tuple(output.shape)
+    expected_shape = ((batch_size, ) + shape_dim)
+    assert actual_shape == expected_shape, f'Shape should be equal to: {expected_shape}. Got: {actual_shape}'
+    assert np.all(output == 1), 'Values should all be equal to ones'
+
+
+@pytest.mark.parametrize('original', [
+    pytest.param(np.random.randint(1, 10, (4, 4))),
+    pytest.param(np.random.randint(1, 10, (10, 2))),
+    pytest.param(np.random.randint(1, 10, (10, 3))),
+])
+def test_replace_2d_border_with_zeros(original: np.ndarray):
+    actual = copy.deepcopy(original)
+    replace_2d_border_with_zeros(actual)
+
+    # Create ground-truth using for loop
+    for i in range(original.shape[0]):
+        original[i, 0] = 0
+        original[i, -1] = 0
+    for j in range(original.shape[1]):
+        original[0, j] = 0
+        original[-1, j] = 0
+
+    assert np.all(actual == original)
