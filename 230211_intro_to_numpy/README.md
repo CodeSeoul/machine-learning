@@ -40,7 +40,7 @@ After creating a new virtual environment, we need to activate it :)
 source 230211_intro_to_numpy/bin/activate
 
 # windows
-.\intro_to_numpy\Scripts\activate
+.\230211_intro_to_numpy\Scripts\activate
 ```
 
 We can confirm that we are in the virtual environment by typing in 
@@ -67,4 +67,10 @@ python -m pip install -r requirements.txt
 And you are now good to go! 
 Open up `exercises.py` and update the source code by reading the instructions. 
 Your goal is to pass all the test cases.
+
+To run the test cases, type in the following
+
+```shell
+pytest tests
+```
 
