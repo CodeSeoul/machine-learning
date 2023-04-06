@@ -41,3 +41,9 @@ https://github.com/CodeSeoul/machine-learning/tree/master/221202-classification
 
 - 221210: Dimensionality reduction techniques: Part 1  
 https://github.com/CodeSeoul/machine-learning/blob/master/221210-pca
+
+- 230114: Linear Regression 
+https://github.com/CodeSeoul/machine-learning/tree/master/230114-linear-regression
+
+- 230211: Intro to Numpy (Parts 1 and 2)
+https://github.com/CodeSeoul/machine-learning/tree/master/230211_intro_to_numpy
