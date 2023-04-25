@@ -1,7 +1,6 @@
+import matplotlib.pyplot as plt
 import torch
 import torchvision
-
-import matplotlib.pyplot as plt
 
 
 def visualize(images: torch.Tensor):
