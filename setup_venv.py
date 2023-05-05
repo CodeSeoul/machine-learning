@@ -51,7 +51,15 @@ def run_python_script(python_command: t.Union[t.List, t.Tuple]) -> None:
     except FileNotFoundError:
         logger.error(f"Failed to run command: 'python {' '.join(python_command)}'. "
                      "Retrying using 'python3'")
-        subprocess.check_output(["python3", *python_command])
+        
+        try:
+            subprocess.check_output(["python3", *python_command])
+        except Exception:
+            # Maybe we are working with windows. Try 'py'
+            logger.error(f"Failed to run command: 'python3 {' '.join(python_command)}'. "
+                         "Retrying using 'py'")
+            subprocess.check_output(["py", *python_command])
+
 
 
 def attempt_pip_install_if_not_installed(module: str) -> None:
