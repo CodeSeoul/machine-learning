@@ -13,7 +13,9 @@ class PyTorchFlow(FlowSpec):
     # Record the accuracy on the test set
     # After finishing, compare the results and save only the best model.
     # call train_mnist_model() located inside of models/model.py to train the model
-    # it will output a model. 
+    # it will output a model and the trainer. 
+    # Tre trainer can also be used to retrieve test accuracy, which will be used to determine the 
+    # "best model". 
     # Feel free to use TensorBoard to visualize the model's training progress
     # Feel free to create a CI / CD workflow. 
     # Get creative and go crazy :)

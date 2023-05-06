@@ -72,8 +72,8 @@ class LitMNIST(LightningModule):
         self.val_accuracy.update(preds, y)
 
         # Calling self.log will surface up scalars for you in TensorBoard
-        self.log('val_loss', loss, prog_bar=True)
-        self.log('val_acc', self.val_accuracy, prog_bar=True)
+        self.log('val_loss', loss, prog_bar=True, on_epoch=True)
+        self.log('val_acc', self.val_accuracy, prog_bar=True, on_epoch=True)
 
     def test_step(self, batch, batch_idx):
         x, y = batch
@@ -83,8 +83,8 @@ class LitMNIST(LightningModule):
         self.test_accuracy.update(preds, y)
 
         # Calling self.log will surface up scalars for you in TensorBoard
-        self.log('test_loss', loss, prog_bar=True)
-        self.log('test_acc', self.test_accuracy, prog_bar=True)
+        self.log('test_loss', loss, prog_bar=True, on_epoch=True)
+        self.log('test_acc', self.test_accuracy, prog_bar=True, on_epoch=True)
 
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
@@ -148,9 +148,10 @@ def train_mnist_model(
     # Train model
     trainer = get_mnist_pytorch_lightning_trainer(max_epochs=epochs)
     trainer.fit(model)
-
-    return model
+    return model, trainer
 
 
 if __name__ == "__main__":
-    train_mnist_model()
+    model, trainer = train_mnist_model(epochs=1)
+    # Get test loss and accuracy
+    print(trainer.test())
