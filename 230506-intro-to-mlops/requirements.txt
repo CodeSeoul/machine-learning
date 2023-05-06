@@ -1,0 +1,10 @@
+# Often good to pin versions in real-world. A version up from a third-party vendor
+# can unexpectedly break your application
+numpy
+matplotlib
+torch
+torchvision
+tqdm
+metaflow
+pytorch-lightning
+torchmetrics
