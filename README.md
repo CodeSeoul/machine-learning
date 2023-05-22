@@ -47,3 +47,6 @@ https://github.com/CodeSeoul/machine-learning/tree/master/230114-linear-regressi
 
 - 230211: Intro to Numpy (Parts 1 and 2)
 https://github.com/CodeSeoul/machine-learning/tree/master/230211_intro_to_numpy
+
+- 230520: Intro to Model Inference Optimization (Part 1)
+https://github.com/CodeSeoul/machine-learning/tree/master/230520-inference-p1
