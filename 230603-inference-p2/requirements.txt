@@ -1,0 +1,9 @@
+numpy
+opencv-python
+matplotlib
+tqdm    
+pandas
+ipykernel
+segmentation_models
+albumentations
+tensorflow-model-optimization
