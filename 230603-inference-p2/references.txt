@@ -1,3 +1,0 @@
-# https://www.kaggle.com/code/faizalkarim/flood-segmentation-unet
-# https://www.tensorflow.org/lite/performance/post_training_quantization
-# https://www.tensorflow.org/model_optimization/guide/pruning/pruning_with_keras

@@ -65,6 +65,6 @@ if __name__ == '__main__':
     parser.add_argument("--img_size", type=int, default=64)
     parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--epochs", type=int, default=50)
-
+    
     args = parser.parse_args()
     train(args)
