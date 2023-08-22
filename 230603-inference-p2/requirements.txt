@@ -6,4 +6,5 @@ pandas
 ipykernel
 segmentation_models
 albumentations
+tensorflow
 tensorflow-model-optimization
