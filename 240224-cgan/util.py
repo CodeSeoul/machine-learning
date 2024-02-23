@@ -74,6 +74,7 @@ def visualize_loss(discriminator_loss: t.List,
 
 @make_if_not_exist('images')
 def visualize_tensors(images: torch.Tensor,
+                      labels: torch.Tensor,
                       row_count: int,
                       column_count: int,
                       epoch_no: int,
@@ -82,9 +83,13 @@ def visualize_tensors(images: torch.Tensor,
     one_based_offset = 1
     for i in range(one_based_offset, row_count * column_count + one_based_offset):
         figure.add_subplot(row_count, column_count, i)
-        img = images[i - one_based_offset]
+        index = i - one_based_offset
+        img = images[index]
+        label = labels[index].cpu().item()
         plt.axis("off")
         plt.imshow(img.numpy().squeeze(), cmap="gray")
+        # Add label text to each image in subplot
+        plt.title(f'Label: {label}')
 
     if is_jupyter:
         plt.show()

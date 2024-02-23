@@ -141,8 +141,6 @@ def train(generator: nn.Module,
         # Loss for plotting
         discriminator_running_loss = 0.0
         generator_running_loss = 0.0
-        # The second (y_train or '_') are the class labels which are not used
-        # when training the standard GAN
         for current_step, (real_images, labels) in tqdm(enumerate(train_dataloader)):
             # Place on appropriate device
             real_images = real_images.reshape(-1, flattened_image_dim).to(device)
@@ -205,7 +203,7 @@ def train(generator: nn.Module,
             fake_images = fake_images.reshape(image_count, width, height)
 
             # Visualize generated images
-            visualize_tensors(fake_images, row_count, column_count, epoch)
+            visualize_tensors(fake_images, fake_labels, row_count, column_count, epoch)
 
             # Revert back to training mode
             generator.train()
